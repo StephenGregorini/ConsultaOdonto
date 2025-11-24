@@ -1,0 +1,13 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+venv/
+
+# Misc
+saida.json
+supabase_schema.json
