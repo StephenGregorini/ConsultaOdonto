@@ -1,105 +1,78 @@
-import os
+import requests
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.base import BaseHTTPMiddleware
-from starlette.responses import Response
 
-from processor import processar_excel
-
-# -------------------------------------------------------------------
-# FASTAPI CONFIG
-# -------------------------------------------------------------------
+from processor import processar_excel, SUPABASE_URL, HEADERS
 
 app = FastAPI(
-    title="API de Importação — Controle Odonto",
-    description="Recebe planilhas Excel, processa e envia para o Supabase.",
-    version="1.0.0"
+    title="API de Importação — MedSimples / Controle Odonto",
+    version="1.0.0",
 )
 
-# -------------------------------------------------------------------
-# CORS (padrão) — mantém para compatibilidade
-# -------------------------------------------------------------------
-
+# CORS liberado para uso local (frontend em localhost:5173)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],          # liberar tudo no DEV
+    allow_origins=["*"],  # em produção você pode restringir
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# -------------------------------------------------------------------
-# CORS CUSTOM — override necessário para Railway
-# Railway força um header próprio, então sobrescrevemos manualmente
-# -------------------------------------------------------------------
-
-class ForceCORSMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        response: Response = await call_next(request)
-
-        # CORS total liberado para uso local + Vercel
-        response.headers["Access-Control-Allow-Origin"] = "*"
-        response.headers["Access-Control-Allow-Methods"] = "*"
-        response.headers["Access-Control-Allow-Headers"] = "*"
-        response.headers["Access-Control-Expose-Headers"] = "*"
-
-        return response
-
-app.add_middleware(ForceCORSMiddleware)
-
-# -------------------------------------------------------------------
-# ROTAS
-# -------------------------------------------------------------------
 
 @app.get("/", include_in_schema=False)
 async def raiz():
-    """Redireciona para a documentação"""
     return RedirectResponse(url="/docs")
 
 
-@app.get("/status", tags=["Status"])
+@app.get("/status")
 async def status():
-    """Health check básico"""
-    return {"status": "ok", "message": "API funcionando!"}
+    return {"status": "ok"}
 
 
-# -------------------------------------------------------------------
-# UPLOAD + PROCESSAMENTO PRINCIPAL
-# -------------------------------------------------------------------
-
-@app.post("/upload", summary="Upload de arquivo Excel", tags=["Importação"])
+@app.post("/upload")
 async def upload_excel(file: UploadFile = File(...)):
     """
-    Recebe um arquivo .xlsx, processa e envia registros ao Supabase.
+    Recebe um arquivo Excel (.xlsx), processa e grava no Supabase.
     """
-
-    # valida formato
     if not file.filename.lower().endswith((".xlsx", ".xls")):
         raise HTTPException(
             status_code=400,
-            detail="Formato inválido. Envie um arquivo .xlsx ou .xls."
+            detail="Formato inválido. Envie um arquivo .xlsx ou .xls.",
         )
 
     try:
-        # lê bytes do arquivo
         contents = await file.read()
-
-        # processa excel → parser → Supabase
-        resultado = processar_excel(contents)
+        resultado = processar_excel(contents, arquivo_nome=file.filename)
 
         return JSONResponse(
             status_code=200,
             content={
                 "arquivo": file.filename,
-                "mensagem": "Processado com sucesso",
-                **resultado
-            }
+                **resultado,
+            },
         )
-
+    except HTTPException:
+        raise
     except Exception as e:
-        # Captura geral
         raise HTTPException(
             status_code=500,
-            detail=f"Erro ao processar o arquivo: {str(e)}"
+            detail=f"Erro ao processar o arquivo: {str(e)}",
         )
+
+
+@app.get("/historico")
+async def listar_historico():
+    """
+    Lista o histórico de importações registrado na tabela 'importacoes'.
+    """
+    url = f"{SUPABASE_URL}/rest/v1/importacoes?order=criado_em.desc"
+    r = requests.get(url, headers=HEADERS)
+
+    if r.status_code not in (200, 201):
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erro ao buscar histórico: {r.status_code} - {r.text}",
+        )
+
+    return r.json()
