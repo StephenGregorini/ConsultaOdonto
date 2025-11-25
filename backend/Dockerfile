@@ -16,5 +16,6 @@ COPY backend/ .
 EXPOSE 8000
 
 # Comando para iniciar a aplicação
-# Executa uvicorn a partir do WORKDIR (/app), apontando para o módulo main.py (main:app)
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Usa gunicorn para rodar uvicorn, uma prática recomendada para produção.
+# O Gunicorn gerenciará os processos do Uvicorn. A variável de ambiente PORT é fornecida pela Railway.
+CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "main:app", "--bind", "0.0.0.0:8000"]
