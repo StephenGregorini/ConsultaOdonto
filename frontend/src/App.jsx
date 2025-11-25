@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useRef, useMemo } from "react";
 
 export default function App() {
@@ -17,7 +18,7 @@ export default function App() {
     form.append("file", file);
 
     try {
-      const res = await fetch("https://SEU-BACKEND.railway.app/upload", {
+      const res = await fetch("http://127.0.0.1:8000/upload", {
         method: "POST",
         body: form,
       });
@@ -44,15 +45,15 @@ export default function App() {
   const humanFileInfo = useMemo(() => {
     if (!file) return null;
     const kb = file.size / 1024;
-    const size =
-      kb > 1024 ? `${(kb / 1024).toFixed(2)} MB` : `${kb.toFixed(0)} KB`;
+    const size = kb > 1024 ? `${(kb / 1024).toFixed(2)} MB` : `${kb.toFixed(0)} KB`;
     return `${file.name} • ${size}`;
   }, [file]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-50">
       <div className="max-w-6xl mx-auto px-4 py-10 lg:py-16">
-        {/* TOP BADGE */}
+
+        {/* BADGE */}
         <div className="inline-flex items-center gap-2 rounded-full bg-sky-500/10 border border-sky-500/30 px-4 py-1 mb-6">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-xs font-semibold tracking-wide text-sky-200">
@@ -69,8 +70,7 @@ export default function App() {
             </h1>
             <p className="mt-3 text-sm sm:text-base text-slate-300 max-w-xl">
               Envie o arquivo de produção em <span className="font-medium">.xlsx</span> e
-              deixe o motor do Controle Odonto validar, consolidar e preparar os
-              dados para o cálculo de remuneração.
+              deixe o motor do Controle Odonto validar e estruturar os dados.
             </p>
           </div>
 
@@ -79,6 +79,7 @@ export default function App() {
               <p className="text-slate-400">Status da integração</p>
               <p className="font-semibold text-emerald-400">Online</p>
             </div>
+
             <div className="rounded-xl bg-slate-900/70 border border-slate-700 px-4 py-2">
               <p className="text-slate-400">Formato esperado</p>
               <p className="font-semibold text-sky-300">Excel · .xlsx</p>
@@ -86,11 +87,14 @@ export default function App() {
           </div>
         </div>
 
-        {/* GRID PRINCIPAL */}
+        {/* GRID */}
         <div className="grid lg:grid-cols-2 gap-8 items-start">
-          {/* COLUNA ESQUERDA - EXPLICAÇÃO / ETAPAS */}
+
+          {/* ESQUERDA */}
           <div className="space-y-6">
-            <div className="rounded-3xl bg-slate-900/70 border border-slate-800/80 shadow-lg shadow-sky-900/30 p-6 sm:p-7 backdrop-blur">
+
+            {/* ETAPAS */}
+            <div className="rounded-3xl bg-slate-900/70 border border-slate-800 p-6 sm:p-7 backdrop-blur shadow-lg shadow-sky-900/30">
               <h2 className="text-base font-semibold text-slate-100 mb-4 flex items-center gap-2">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-sky-500/20 text-sky-300 text-sm">
                   1
@@ -100,52 +104,32 @@ export default function App() {
 
               <ol className="space-y-3 text-sm text-slate-300">
                 <li className="flex gap-3">
-                  <span className="mt-0.5 h-5 w-5 rounded-full bg-sky-500/15 border border-sky-500/60 flex items-center justify-center text-[10px]">
-                    ①
-                  </span>
+                  <span className="mt-0.5 h-5 w-5 rounded-full bg-sky-500/15 border border-sky-500/60 flex items-center justify-center text-[10px]">①</span>
                   <div>
-                    <p className="font-medium text-slate-100">
-                      Upload do arquivo Excel
-                    </p>
-                    <p className="text-slate-400">
-                      Você seleciona o arquivo de produção da clínica ou rede
-                      odontológica no padrão definido.
-                    </p>
+                    <p className="font-medium text-slate-100">Upload do Excel</p>
+                    <p className="text-slate-400">Selecione o arquivo contendo a produção.</p>
                   </div>
                 </li>
+
                 <li className="flex gap-3">
-                  <span className="mt-0.5 h-5 w-5 rounded-full bg-sky-500/15 border border-sky-500/60 flex items-center justify-center text-[10px]">
-                    ②
-                  </span>
+                  <span className="mt-0.5 h-5 w-5 rounded-full bg-sky-500/15 border border-sky-500/60 flex items-center justify-center text-[10px]">②</span>
                   <div>
-                    <p className="font-medium text-slate-100">
-                      Validação & consistência
-                    </p>
-                    <p className="text-slate-400">
-                      O backend confere estrutura, tipos de dados e mapeamento
-                      de colunas antes de seguir com a ingestão.
-                    </p>
+                    <p className="font-medium text-slate-100">Validação & consistência</p>
+                    <p className="text-slate-400">O backend confere a estrutura e os dados.</p>
                   </div>
                 </li>
+
                 <li className="flex gap-3">
-                  <span className="mt-0.5 h-5 w-5 rounded-full bg-sky-500/15 border border-sky-500/60 flex items-center justify-center text-[10px]">
-                    ③
-                  </span>
+                  <span className="mt-0.5 h-5 w-5 rounded-full bg-sky-500/15 border border-sky-500/60 flex items-center justify-center text-[10px]">③</span>
                   <div>
-                    <p className="font-medium text-slate-100">
-                      Resumo pronto para decisão
-                    </p>
-                    <p className="text-slate-400">
-                      Você recebe um resumo do processamento (linhas lidas,
-                      erros, avisos) pronto para ser consumido nos próximos
-                      módulos do Controle Odonto.
-                    </p>
+                    <p className="font-medium text-slate-100">Resumo estruturado</p>
+                    <p className="text-slate-400">Retornamos um resumo da ingestão para validação.</p>
                   </div>
                 </li>
               </ol>
             </div>
 
-            {/* CAIXINHAS RESUMO */}
+            {/* CAIXAS DE STATUS */}
             <div className="grid sm:grid-cols-3 gap-3 text-xs sm:text-sm">
               <div className="rounded-2xl bg-slate-900/80 border border-slate-800 px-4 py-3">
                 <p className="text-slate-400">Último arquivo</p>
@@ -153,16 +137,14 @@ export default function App() {
                   {humanFileInfo || "Nenhum selecionado"}
                 </p>
               </div>
+
               <div className="rounded-2xl bg-slate-900/80 border border-slate-800 px-4 py-3">
                 <p className="text-slate-400">Status atual</p>
                 <p className="font-semibold">
-                  {loading
-                    ? "Processando..."
-                    : result
-                    ? "Processamento concluído"
-                    : "Aguardando upload"}
+                  {loading ? "Processando..." : result ? "Concluído" : "Aguardando upload"}
                 </p>
               </div>
+
               <div className="rounded-2xl bg-slate-900/80 border border-slate-800 px-4 py-3">
                 <p className="text-slate-400">Próximo passo</p>
                 <p className="font-semibold text-emerald-300">
@@ -172,13 +154,14 @@ export default function App() {
             </div>
           </div>
 
-          {/* COLUNA DIREITA - UPLOAD + RESULTADO */}
+          {/* DIREITA */}
           <div className="space-y-6">
-            {/* CARD UPLOAD */}
+
+            {/* UPLOAD CARD */}
             <div className="rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl shadow-sky-900/40 p-6 sm:p-7 backdrop-blur">
               <h2 className="text-base font-semibold text-slate-100 mb-4 flex items-center gap-2">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-300 text-sm">
-                  ⬆
+                  ↑
                 </span>
                 Enviar arquivo de produção (.xlsx)
               </h2>
@@ -193,11 +176,11 @@ export default function App() {
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
                 className={`relative border-2 border-dashed rounded-2xl px-4 py-8 sm:px-6 sm:py-10 cursor-pointer transition 
-                  ${
-                    dragging
-                      ? "border-sky-400 bg-sky-500/10"
-                      : "border-slate-700 bg-slate-900/60 hover:border-sky-500/80 hover:bg-slate-900/80"
-                  }`}
+                ${
+                  dragging
+                    ? "border-sky-400 bg-sky-500/10"
+                    : "border-slate-700 bg-slate-900/60 hover:border-sky-500/80 hover:bg-slate-900/80"
+                }`}
               >
                 <input
                   ref={fileInputRef}
@@ -231,7 +214,7 @@ export default function App() {
                         : "Arraste o arquivo aqui ou clique para selecionar"}
                     </p>
                     <p className="text-xs sm:text-sm text-slate-400 mt-1">
-                      Aceita apenas arquivos Excel no formato{" "}
+                      Aceita apenas arquivos Excel{" "}
                       <span className="font-semibold text-sky-300">.xlsx</span>.
                     </p>
                   </div>
@@ -247,57 +230,55 @@ export default function App() {
                 </div>
               </div>
 
-              {/* BOTÃO + LOADING */}
+              {/* BOTÃO */}
               <div className="mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <button
                   onClick={upload}
                   disabled={!file || loading}
                   className={`inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold transition w-full sm:w-auto
-                    ${
-                      !file || loading
-                        ? "bg-sky-500/40 text-slate-200 cursor-not-allowed"
-                        : "bg-sky-500 hover:bg-sky-400 text-slate-950 shadow-lg shadow-sky-900/40"
-                    }`}
+                  ${
+                    !file || loading
+                      ? "bg-sky-500/40 text-slate-200 cursor-not-allowed"
+                      : "bg-sky-500 hover:bg-sky-400 text-slate-950 shadow-lg shadow-sky-900/40"
+                  }`}
                 >
                   {loading ? (
                     <>
                       <span className="h-4 w-4 rounded-full border-2 border-slate-950/10 border-t-slate-950 animate-spin" />
-                      Processando arquivo...
+                      Processando...
                     </>
                   ) : (
-                    <>
-                      <span>Enviar para processamento</span>
-                    </>
+                    <>Enviar para processamento</>
                   )}
                 </button>
 
                 <p className="text-[11px] sm:text-xs text-slate-400">
-                  Os dados são processados somente para cálculo de remuneração e
-                  auditoria interna do Controle Odonto.
+                  Os dados são usados apenas para cálculo de remuneração.
                 </p>
               </div>
 
-              {/* BARRA DE PROGRESSO */}
+              {/* PROGRESSO */}
               {loading && (
                 <div className="mt-4 h-1.5 w-full rounded-full bg-slate-800 overflow-hidden">
-                  <div className="h-full w-1/2 rounded-full bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-500 animate-[progress_1.2s_ease-in-out_infinite]" />
+                  <div className="h-full w-full rounded-full bg-gradient-to-r from-sky-400 via-emerald-400 to-sky-500 animate-[pulse_1.4s_ease-in-out_infinite]" />
                 </div>
               )}
             </div>
 
-            {/* CARD RESULTADO */}
+            {/* RESULTADO */}
             {result && (
               <div className="rounded-3xl bg-slate-950/80 border border-slate-800 shadow-lg shadow-slate-900/60 p-5 sm:p-6">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm sm:text-base font-semibold text-slate-100">
                     Resultado do processamento
                   </h3>
+
                   <span className="text-[11px] px-2 py-1 rounded-full bg-slate-800 text-slate-300">
                     Retorno da API
                   </span>
                 </div>
 
-                {/* Se existirem chaves comuns, mostra chips resumidos */}
+                {/* CHIPS */}
                 <div className="flex flex-wrap gap-2 mb-4 text-[11px] sm:text-xs">
                   {"total_linhas" in result && (
                     <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200">
@@ -307,22 +288,27 @@ export default function App() {
                       </span>
                     </span>
                   )}
-                  {"erros" in result && Array.isArray(result.erros) && (
-                    <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200">
-                      Erros:{" "}
-                      <span className="font-semibold text-rose-300">
-                        {result.erros.length}
+
+                  {"erros" in result &&
+                    Array.isArray(result.erros) && (
+                      <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200">
+                        Erros:{" "}
+                        <span className="font-semibold text-rose-300">
+                          {result.erros.length}
+                        </span>
                       </span>
-                    </span>
-                  )}
-                  {"avisos" in result && Array.isArray(result.avisos) && (
-                    <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200">
-                      Avisos:{" "}
-                      <span className="font-semibold text-amber-300">
-                        {result.avisos.length}
+                    )}
+
+                  {"avisos" in result &&
+                    Array.isArray(result.avisos) && (
+                      <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200">
+                        Avisos:{" "}
+                        <span className="font-semibold text-amber-300">
+                          {result.avisos.length}
+                        </span>
                       </span>
-                    </span>
-                  )}
+                    )}
+
                   {"arquivo" in result && (
                     <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-200 truncate max-w-[220px]">
                       Arquivo:{" "}
@@ -333,9 +319,10 @@ export default function App() {
                   )}
                 </div>
 
+                {/* JSON RAW */}
                 <div className="rounded-2xl bg-slate-950 border border-slate-800 max-h-64 overflow-auto text-[11px] sm:text-xs">
-                  <pre className="p-3 text-slate-200">
-                    <code>{JSON.stringify(result, null, 2)}</code>
+                  <pre className="p-3 text-slate-200 whitespace-pre-wrap">
+                    {JSON.stringify(result, null, 2)}
                   </pre>
                 </div>
               </div>
@@ -344,14 +331,16 @@ export default function App() {
         </div>
       </div>
 
-      {/* animação keyframes da barra de progresso */}
-      <style>{`
-        @keyframes progress {
+      {/* KEYFRAMES SEGUROS VIA TAILWIND */}
+      <style>
+        {`
+        @keyframes pulse {
           0% { transform: translateX(-100%); }
           50% { transform: translateX(0%); }
           100% { transform: translateX(100%); }
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 }
