@@ -1,0 +1,5563 @@
+{
+  "database_url_masked": "postgresql://postgres:***@db.nazwcadbqmadckhtssjd.supabase.co:5432/postgres",
+  "tables": [
+    {
+      "schema": "auth",
+      "name": "audit_log_entries",
+      "columns": [
+        {
+          "column_name": "instance_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "payload",
+          "data_type": "json",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "json"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "ip_address",
+          "data_type": "character varying",
+          "is_nullable": "NO",
+          "column_default": "''::character varying",
+          "character_maximum_length": 64,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "flow_state",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "auth_code",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "code_challenge_method",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "code_challenge_method"
+        },
+        {
+          "column_name": "code_challenge",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "provider_type",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "provider_access_token",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "provider_refresh_token",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "authentication_method",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "auth_code_issued_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "identities",
+      "columns": [
+        {
+          "column_name": "provider_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "identity_data",
+          "data_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "provider",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "last_sign_in_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "email",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "instances",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "uuid",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "raw_base_config",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_amr_claims",
+      "columns": [
+        {
+          "column_name": "session_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "authentication_method",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_challenges",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "factor_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "verified_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "ip_address",
+          "data_type": "inet",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "inet"
+        },
+        {
+          "column_name": "otp_code",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "web_authn_session_data",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_factors",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "friendly_name",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "factor_type",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "factor_type"
+        },
+        {
+          "column_name": "status",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "factor_status"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "secret",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "phone",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "last_challenged_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "web_authn_credential",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "web_authn_aaguid",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "last_webauthn_challenge_data",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "oauth_authorizations",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "authorization_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "client_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "redirect_uri",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "scope",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "state",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "resource",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "code_challenge",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "code_challenge_method",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "code_challenge_method"
+        },
+        {
+          "column_name": "response_type",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": "'code'::auth.oauth_response_type",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "oauth_response_type"
+        },
+        {
+          "column_name": "status",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": "'pending'::auth.oauth_authorization_status",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "oauth_authorization_status"
+        },
+        {
+          "column_name": "authorization_code",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "expires_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "(now() + '00:03:00'::interval)",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "approved_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "nonce",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "oauth_clients",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "client_secret_hash",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "registration_type",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "oauth_registration_type"
+        },
+        {
+          "column_name": "redirect_uris",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "grant_types",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "client_name",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "client_uri",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "logo_uri",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "deleted_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "client_type",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": "'confidential'::auth.oauth_client_type",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "oauth_client_type"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "oauth_consents",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "client_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "scopes",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "granted_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "revoked_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "one_time_tokens",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "token_type",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "one_time_token_type"
+        },
+        {
+          "column_name": "token_hash",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "relates_to",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "refresh_tokens",
+      "columns": [
+        {
+          "column_name": "instance_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "id",
+          "data_type": "bigint",
+          "is_nullable": "NO",
+          "column_default": "nextval('auth.refresh_tokens_id_seq'::regclass)",
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "token",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "revoked",
+          "data_type": "boolean",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "parent",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "session_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "saml_providers",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "sso_provider_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "entity_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "metadata_xml",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "metadata_url",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "attribute_mapping",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "name_id_format",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "saml_relay_states",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "sso_provider_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "request_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "for_email",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "redirect_to",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "flow_state_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "schema_migrations",
+      "columns": [
+        {
+          "column_name": "version",
+          "data_type": "character varying",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        }
+      ],
+      "primary_key": [
+        "version"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "sessions",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "user_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "factor_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "aal",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "aal_level"
+        },
+        {
+          "column_name": "not_after",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "refreshed_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        },
+        {
+          "column_name": "user_agent",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "ip",
+          "data_type": "inet",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "inet"
+        },
+        {
+          "column_name": "tag",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "oauth_client_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "refresh_token_hmac_key",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "refresh_token_counter",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "scopes",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "sso_domains",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "sso_provider_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "domain",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "sso_providers",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "resource_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "disabled",
+          "data_type": "boolean",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "auth",
+      "name": "users",
+      "columns": [
+        {
+          "column_name": "instance_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "aud",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "role",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "email",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "encrypted_password",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "email_confirmed_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "invited_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "confirmation_token",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "confirmation_sent_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "recovery_token",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "recovery_sent_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "email_change_token_new",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "email_change",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "email_change_sent_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "last_sign_in_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "raw_app_meta_data",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "raw_user_meta_data",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "is_super_admin",
+          "data_type": "boolean",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "phone",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": "NULL::character varying",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "phone_confirmed_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "phone_change",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": "''::character varying",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "phone_change_token",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": "''::character varying",
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "phone_change_sent_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "confirmed_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "email_change_token_current",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": "''::character varying",
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "email_change_confirm_status",
+          "data_type": "smallint",
+          "is_nullable": "YES",
+          "column_default": "0",
+          "character_maximum_length": null,
+          "numeric_precision": 16,
+          "numeric_scale": 0,
+          "udt_name": "int2"
+        },
+        {
+          "column_name": "banned_until",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "reauthentication_token",
+          "data_type": "character varying",
+          "is_nullable": "YES",
+          "column_default": "''::character varying",
+          "character_maximum_length": 255,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "reauthentication_sent_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "is_sso_user",
+          "data_type": "boolean",
+          "is_nullable": "NO",
+          "column_default": "false",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        },
+        {
+          "column_name": "deleted_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "is_anonymous",
+          "data_type": "boolean",
+          "is_nullable": "NO",
+          "column_default": "false",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "public",
+      "name": "boletos_emitidos",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "qtde",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "valor_total",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "boletos_emitidos_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "clinica_limite",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "bigint",
+          "is_nullable": "NO",
+          "column_default": "nextval('clinica_limite_id_seq'::regclass)",
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "limite_aprovado",
+          "data_type": "numeric",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "faturamento_base",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_base",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "aprovado_em",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        },
+        {
+          "column_name": "aprovado_por",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "observacao",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "clinica_limite_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "clinicas",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "nome",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "cnpj",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "external_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "public",
+      "name": "importacoes",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "arquivo_nome",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "total_linhas",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "erros",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "avisos",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "status",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "criado_em",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        },
+        {
+          "column_name": "log",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "importacoes_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "inadimplencia",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "taxa",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "inadimplencia_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "parcelamentos_detalhe",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "qtde_parcelas",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "qtde",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "percentual",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "parcelamentos_detalhe_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "taxa_atraso_faixa",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "faixa",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "qtde",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "percentual",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "taxa_atraso_faixa_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "taxa_pago_no_vencimento",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "taxa",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "taxa_pago_no_vencimento_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "tempo_medio_pagamento",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "dias",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "tempo_medio_pagamento_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "usuarios",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "nome",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "role",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": "'cliente'::text",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "criado_em",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "public",
+      "name": "valor_medio_boleto",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "valor",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": [
+        {
+          "constraint_name": "valor_medio_boleto_clinica_id_fkey",
+          "column_name": "clinica_id",
+          "foreign_table_schema": "public",
+          "foreign_table_name": "clinicas",
+          "foreign_column_name": "id"
+        }
+      ]
+    },
+    {
+      "schema": "realtime",
+      "name": "messages",
+      "columns": [
+        {
+          "column_name": "topic",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "extension",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "payload",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "event",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "private",
+          "data_type": "boolean",
+          "is_nullable": "YES",
+          "column_default": "false",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        },
+        {
+          "column_name": "inserted_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        },
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        }
+      ],
+      "primary_key": [
+        "inserted_at",
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "realtime",
+      "name": "schema_migrations",
+      "columns": [
+        {
+          "column_name": "version",
+          "data_type": "bigint",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "inserted_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        }
+      ],
+      "primary_key": [
+        "version"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "realtime",
+      "name": "subscription",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "bigint",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "subscription_id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "entity",
+          "data_type": "regclass",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "regclass"
+        },
+        {
+          "column_name": "filters",
+          "data_type": "ARRAY",
+          "is_nullable": "NO",
+          "column_default": "'{}'::realtime.user_defined_filter[]",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "_user_defined_filter"
+        },
+        {
+          "column_name": "claims",
+          "data_type": "jsonb",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "claims_role",
+          "data_type": "regrole",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "regrole"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "NO",
+          "column_default": "timezone('utc'::text, now())",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "storage",
+      "name": "buckets",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "name",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "owner",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "public",
+          "data_type": "boolean",
+          "is_nullable": "YES",
+          "column_default": "false",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        },
+        {
+          "column_name": "avif_autodetection",
+          "data_type": "boolean",
+          "is_nullable": "YES",
+          "column_default": "false",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        },
+        {
+          "column_name": "file_size_limit",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "allowed_mime_types",
+          "data_type": "ARRAY",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "_text"
+        },
+        {
+          "column_name": "owner_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "type",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": "'STANDARD'::storage.buckettype",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "buckettype"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "storage",
+      "name": "buckets_analytics",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "type",
+          "data_type": "USER-DEFINED",
+          "is_nullable": "NO",
+          "column_default": "'ANALYTICS'::storage.buckettype",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "buckettype"
+        },
+        {
+          "column_name": "format",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": "'ICEBERG'::text",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "storage",
+      "name": "migrations",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "name",
+          "data_type": "character varying",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": 100,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "hash",
+          "data_type": "character varying",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": 40,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "varchar"
+        },
+        {
+          "column_name": "executed_at",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "YES",
+          "column_default": "CURRENT_TIMESTAMP",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "storage",
+      "name": "objects",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "bucket_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "name",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "owner",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "last_accessed_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "metadata",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "path_tokens",
+          "data_type": "ARRAY",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "_text"
+        },
+        {
+          "column_name": "version",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "owner_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "user_metadata",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        },
+        {
+          "column_name": "level",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "storage",
+      "name": "prefixes",
+      "columns": [
+        {
+          "column_name": "bucket_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "name",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "level",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "bucket_id",
+        "name",
+        "level"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "storage",
+      "name": "s3_multipart_uploads",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "in_progress_size",
+          "data_type": "bigint",
+          "is_nullable": "NO",
+          "column_default": "0",
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "upload_signature",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "bucket_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "key",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "version",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "owner_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "user_metadata",
+          "data_type": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "jsonb"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "storage",
+      "name": "s3_multipart_uploads_parts",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "upload_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "size",
+          "data_type": "bigint",
+          "is_nullable": "NO",
+          "column_default": "0",
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "part_number",
+          "data_type": "integer",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "bucket_id",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "key",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "etag",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "owner_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "version",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "now()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    },
+    {
+      "schema": "vault",
+      "name": "secrets",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "NO",
+          "column_default": "gen_random_uuid()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "name",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "description",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": "''::text",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "secret",
+          "data_type": "text",
+          "is_nullable": "NO",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "key_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "nonce",
+          "data_type": "bytea",
+          "is_nullable": "YES",
+          "column_default": "vault._crypto_aead_det_noncegen()",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bytea"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "CURRENT_TIMESTAMP",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "NO",
+          "column_default": "CURRENT_TIMESTAMP",
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "primary_key": [
+        "id"
+      ],
+      "foreign_keys": []
+    }
+  ],
+  "views": [
+    {
+      "schema": "bi",
+      "name": "vw_clinicas",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "nome",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "definition": " SELECT id,\n    nome\n   FROM clinicas;"
+    },
+    {
+      "schema": "extensions",
+      "name": "pg_stat_statements",
+      "columns": [
+        {
+          "column_name": "userid",
+          "data_type": "oid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "oid"
+        },
+        {
+          "column_name": "dbid",
+          "data_type": "oid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "oid"
+        },
+        {
+          "column_name": "toplevel",
+          "data_type": "boolean",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bool"
+        },
+        {
+          "column_name": "queryid",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "query",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "plans",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "total_plan_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "min_plan_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "max_plan_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "mean_plan_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "stddev_plan_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "calls",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "total_exec_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "min_exec_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "max_exec_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "mean_exec_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "stddev_exec_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "rows",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "shared_blks_hit",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "shared_blks_read",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "shared_blks_dirtied",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "shared_blks_written",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "local_blks_hit",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "local_blks_read",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "local_blks_dirtied",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "local_blks_written",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "temp_blks_read",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "temp_blks_written",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "shared_blk_read_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "shared_blk_write_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "local_blk_read_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "local_blk_write_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "temp_blk_read_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "temp_blk_write_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "wal_records",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "wal_fpi",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "wal_bytes",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "jit_functions",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "jit_generation_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "jit_inlining_count",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "jit_inlining_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "jit_optimization_count",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "jit_optimization_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "jit_emission_count",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "jit_emission_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "jit_deform_count",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "jit_deform_time",
+          "data_type": "double precision",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 53,
+          "numeric_scale": null,
+          "udt_name": "float8"
+        },
+        {
+          "column_name": "stats_since",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "minmax_stats_since",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "definition": " SELECT userid,\n    dbid,\n    toplevel,\n    queryid,\n    query,\n    plans,\n    total_plan_time,\n    min_plan_time,\n    max_plan_time,\n    mean_plan_time,\n    stddev_plan_time,\n    calls,\n    total_exec_time,\n    min_exec_time,\n    max_exec_time,\n    mean_exec_time,\n    stddev_exec_time,\n    rows,\n    shared_blks_hit,\n    shared_blks_read,\n    shared_blks_dirtied,\n    shared_blks_written,\n    local_blks_hit,\n    local_blks_read,\n    local_blks_dirtied,\n    local_blks_written,\n    temp_blks_read,\n    temp_blks_written,\n    shared_blk_read_time,\n    shared_blk_write_time,\n    local_blk_read_time,\n    local_blk_write_time,\n    temp_blk_read_time,\n    temp_blk_write_time,\n    wal_records,\n    wal_fpi,\n    wal_bytes,\n    jit_functions,\n    jit_generation_time,\n    jit_inlining_count,\n    jit_inlining_time,\n    jit_optimization_count,\n    jit_optimization_time,\n    jit_emission_count,\n    jit_emission_time,\n    jit_deform_count,\n    jit_deform_time,\n    stats_since,\n    minmax_stats_since\n   FROM pg_stat_statements(true) pg_stat_statements(userid, dbid, toplevel, queryid, query, plans, total_plan_time, min_plan_time, max_plan_time, mean_plan_time, stddev_plan_time, calls, total_exec_time, min_exec_time, max_exec_time, mean_exec_time, stddev_exec_time, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, shared_blk_read_time, shared_blk_write_time, local_blk_read_time, local_blk_write_time, temp_blk_read_time, temp_blk_write_time, wal_records, wal_fpi, wal_bytes, jit_functions, jit_generation_time, jit_inlining_count, jit_inlining_time, jit_optimization_count, jit_optimization_time, jit_emission_count, jit_emission_time, jit_deform_count, jit_deform_time, stats_since, minmax_stats_since);"
+    },
+    {
+      "schema": "extensions",
+      "name": "pg_stat_statements_info",
+      "columns": [
+        {
+          "column_name": "dealloc",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "stats_reset",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "definition": " SELECT dealloc,\n    stats_reset\n   FROM pg_stat_statements_info() pg_stat_statements_info(dealloc, stats_reset);"
+    },
+    {
+      "schema": "public",
+      "name": "vw_dashboard_final",
+      "columns": [
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_nome",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "cnpj",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "external_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "mes_ref_date",
+          "data_type": "date",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "date"
+        },
+        {
+          "column_name": "qtde_boletos",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "valor_total_emitido",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "valor_medio_boleto",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "taxa_pago_no_vencimento",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "tempo_medio_pagamento_dias",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "taxa_inadimplencia",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "parc_qtde_registros",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "parc_media_parcelas_pond",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "parc_max_parcelas_mes",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "parc_norm_parcelas",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "pag_taxa_pago_no_vencimento",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "pag_tempo_medio_pagamento_dias",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "percentual_faixa_0_30",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "percentual_faixa_31_60",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "percentual_faixa_61_90",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "percentual_faixa_90_plus",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "norm_inadimplencia",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_norm_parcelas",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "norm_valor_medio",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_credito",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_mes_anterior",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_variacao_vs_m1",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "categoria_risco",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "limite_aprovado",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "faturamento_base",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_base",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "limite_aprovado_em",
+          "data_type": "timestamp without time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamp"
+        },
+        {
+          "column_name": "aprovado_por",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "limite_observacao",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "definition": " WITH ind AS (\n         SELECT vw_indicadores_gerais.clinica_id,\n            vw_indicadores_gerais.clinica_nome,\n            vw_indicadores_gerais.cnpj,\n            vw_indicadores_gerais.external_id,\n            vw_indicadores_gerais.mes_ref_date,\n            vw_indicadores_gerais.mes_ref,\n            vw_indicadores_gerais.qtde_boletos,\n            vw_indicadores_gerais.valor_total_emitido,\n            vw_indicadores_gerais.valor_medio_boleto,\n            vw_indicadores_gerais.taxa_pago_no_vencimento,\n            vw_indicadores_gerais.tempo_medio_pagamento_dias,\n            vw_indicadores_gerais.taxa_inadimplencia\n           FROM vw_indicadores_gerais\n        ), parc AS (\n         SELECT vw_parcelamentos.clinica_id,\n            vw_parcelamentos.mes_ref,\n            vw_parcelamentos.mes_ref_date,\n            vw_parcelamentos.qtde_registros,\n            vw_parcelamentos.media_parcelas_pond,\n            vw_parcelamentos.max_parcelas_mes,\n            vw_parcelamentos.norm_parcelas\n           FROM vw_parcelamentos\n        ), pag AS (\n         SELECT vw_pagamentos.clinica_id,\n            vw_pagamentos.mes_ref,\n            vw_pagamentos.mes_ref_date,\n            vw_pagamentos.taxa_pago_no_vencimento,\n            vw_pagamentos.tempo_medio_pagamento_dias,\n            vw_pagamentos.percentual_faixa_0_30,\n            vw_pagamentos.percentual_faixa_31_60,\n            vw_pagamentos.percentual_faixa_61_90,\n            vw_pagamentos.percentual_faixa_90_plus\n           FROM vw_pagamentos\n        ), score AS (\n         SELECT vw_score_credito.clinica_id,\n            vw_score_credito.clinica_nome,\n            vw_score_credito.cnpj,\n            vw_score_credito.external_id,\n            vw_score_credito.mes_ref,\n            vw_score_credito.mes_ref_date,\n            vw_score_credito.qtde_boletos,\n            vw_score_credito.valor_total_emitido,\n            vw_score_credito.valor_medio_boleto,\n            vw_score_credito.taxa_pago_no_vencimento,\n            vw_score_credito.tempo_medio_pagamento_dias,\n            vw_score_credito.taxa_inadimplencia,\n            vw_score_credito.qtde_registros,\n            vw_score_credito.media_parcelas_pond,\n            vw_score_credito.max_parcelas_mes,\n            vw_score_credito.norm_parcelas,\n            vw_score_credito.max_inadimplencia,\n            vw_score_credito.max_valor_medio,\n            vw_score_credito.norm_inadimplencia,\n            vw_score_credito.norm_valor_medio,\n            vw_score_credito.score_credito,\n            vw_score_credito.score_mes_anterior,\n            vw_score_credito.score_variacao_vs_m1,\n            vw_score_credito.categoria_risco\n           FROM vw_score_credito\n        ), limite AS (\n         SELECT cl.clinica_id,\n            cl.limite_aprovado,\n            cl.faturamento_base,\n            cl.score_base,\n            cl.aprovado_em,\n            cl.aprovado_por,\n            cl.observacao,\n            row_number() OVER (PARTITION BY cl.clinica_id ORDER BY cl.aprovado_em DESC) AS rn\n           FROM clinica_limite cl\n        )\n SELECT s.clinica_id,\n    s.clinica_nome,\n    s.cnpj,\n    s.external_id,\n    s.mes_ref,\n    s.mes_ref_date,\n    i.qtde_boletos,\n    i.valor_total_emitido,\n    i.valor_medio_boleto,\n    i.taxa_pago_no_vencimento,\n    i.tempo_medio_pagamento_dias,\n    i.taxa_inadimplencia,\n    p.qtde_registros AS parc_qtde_registros,\n    p.media_parcelas_pond AS parc_media_parcelas_pond,\n    p.max_parcelas_mes AS parc_max_parcelas_mes,\n    p.norm_parcelas AS parc_norm_parcelas,\n    pg.taxa_pago_no_vencimento AS pag_taxa_pago_no_vencimento,\n    pg.tempo_medio_pagamento_dias AS pag_tempo_medio_pagamento_dias,\n    pg.percentual_faixa_0_30,\n    pg.percentual_faixa_31_60,\n    pg.percentual_faixa_61_90,\n    pg.percentual_faixa_90_plus,\n    s.norm_inadimplencia,\n    s.norm_parcelas AS score_norm_parcelas,\n    s.norm_valor_medio,\n    s.score_credito,\n    s.score_mes_anterior,\n    s.score_variacao_vs_m1,\n    s.categoria_risco,\n    l.limite_aprovado,\n    l.faturamento_base,\n    l.score_base,\n    l.aprovado_em AS limite_aprovado_em,\n    l.aprovado_por,\n    l.observacao AS limite_observacao\n   FROM ((((score s\n     LEFT JOIN ind i ON (((i.clinica_id = s.clinica_id) AND (i.mes_ref = s.mes_ref))))\n     LEFT JOIN parc p ON (((p.clinica_id = s.clinica_id) AND (p.mes_ref = s.mes_ref))))\n     LEFT JOIN pag pg ON (((pg.clinica_id = s.clinica_id) AND (pg.mes_ref = s.mes_ref))))\n     LEFT JOIN limite l ON (((l.clinica_id = s.clinica_id) AND (l.rn = 1))))\n  ORDER BY s.clinica_nome, s.mes_ref_date;"
+    },
+    {
+      "schema": "public",
+      "name": "vw_indicadores_gerais",
+      "columns": [
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_nome",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "cnpj",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "external_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "mes_ref_date",
+          "data_type": "date",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "date"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "qtde_boletos",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "valor_total_emitido",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "valor_medio_boleto",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "taxa_pago_no_vencimento",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "tempo_medio_pagamento_dias",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "taxa_inadimplencia",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        }
+      ],
+      "definition": " WITH base_boletos AS (\n         SELECT b_1.clinica_id,\n            b_1.mes_ref,\n            to_date(b_1.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            b_1.qtde AS qtde_boletos,\n            b_1.valor_total AS valor_total_emitido,\n            b_1.created_at,\n            row_number() OVER (PARTITION BY b_1.clinica_id, b_1.mes_ref ORDER BY b_1.created_at DESC) AS rn\n           FROM boletos_emitidos b_1\n        ), base_taxa_venc AS (\n         SELECT t.clinica_id,\n            t.mes_ref,\n            to_date(t.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            t.taxa AS taxa_pago_no_vencimento,\n            t.created_at,\n            row_number() OVER (PARTITION BY t.clinica_id, t.mes_ref ORDER BY t.created_at DESC) AS rn\n           FROM taxa_pago_no_vencimento t\n        ), base_tempo_pag AS (\n         SELECT p.clinica_id,\n            p.mes_ref,\n            to_date(p.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            p.dias AS tempo_medio_pagamento_dias,\n            p.created_at,\n            row_number() OVER (PARTITION BY p.clinica_id, p.mes_ref ORDER BY p.created_at DESC) AS rn\n           FROM tempo_medio_pagamento p\n        ), base_inadimplencia AS (\n         SELECT i.clinica_id,\n            i.mes_ref,\n            to_date(i.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            i.taxa AS taxa_inadimplencia,\n            i.created_at,\n            row_number() OVER (PARTITION BY i.clinica_id, i.mes_ref ORDER BY i.created_at DESC) AS rn\n           FROM inadimplencia i\n        )\n SELECT c.id AS clinica_id,\n    c.nome AS clinica_nome,\n    c.cnpj,\n    c.external_id,\n    COALESCE(b.mes_ref_date, tv.mes_ref_date, tp.mes_ref_date, ina.mes_ref_date) AS mes_ref_date,\n    to_char((COALESCE(b.mes_ref_date, tv.mes_ref_date, tp.mes_ref_date, ina.mes_ref_date))::timestamp with time zone, 'YYYY-MM'::text) AS mes_ref,\n    b.qtde_boletos,\n    b.valor_total_emitido,\n        CASE\n            WHEN (b.qtde_boletos > 0) THEN (b.valor_total_emitido / (b.qtde_boletos)::numeric)\n            ELSE NULL::numeric\n        END AS valor_medio_boleto,\n    tv.taxa_pago_no_vencimento,\n    tp.tempo_medio_pagamento_dias,\n    ina.taxa_inadimplencia\n   FROM ((((clinicas c\n     LEFT JOIN base_boletos b ON (((b.clinica_id = c.id) AND (b.rn = 1))))\n     LEFT JOIN base_taxa_venc tv ON (((tv.clinica_id = c.id) AND (tv.mes_ref = b.mes_ref) AND (tv.rn = 1))))\n     LEFT JOIN base_tempo_pag tp ON (((tp.clinica_id = c.id) AND (tp.mes_ref = b.mes_ref) AND (tp.rn = 1))))\n     LEFT JOIN base_inadimplencia ina ON (((ina.clinica_id = c.id) AND (ina.mes_ref = b.mes_ref) AND (ina.rn = 1))))\n  WHERE (b.rn = 1)\n  ORDER BY c.nome, COALESCE(b.mes_ref_date, tv.mes_ref_date, tp.mes_ref_date, ina.mes_ref_date);"
+    },
+    {
+      "schema": "public",
+      "name": "vw_pagamentos",
+      "columns": [
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "mes_ref_date",
+          "data_type": "date",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "date"
+        },
+        {
+          "column_name": "taxa_pago_no_vencimento",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "tempo_medio_pagamento_dias",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "percentual_faixa_0_30",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "percentual_faixa_31_60",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "percentual_faixa_61_90",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "percentual_faixa_90_plus",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        }
+      ],
+      "definition": " WITH base_taxa_venc AS (\n         SELECT t.clinica_id,\n            t.mes_ref,\n            to_date(t.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            t.taxa AS taxa_pago_no_vencimento,\n            t.created_at,\n            row_number() OVER (PARTITION BY t.clinica_id, t.mes_ref ORDER BY t.created_at DESC) AS rn\n           FROM taxa_pago_no_vencimento t\n        ), base_tempo_pag AS (\n         SELECT p.clinica_id,\n            p.mes_ref,\n            to_date(p.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            p.dias AS tempo_medio_pagamento_dias,\n            p.created_at,\n            row_number() OVER (PARTITION BY p.clinica_id, p.mes_ref ORDER BY p.created_at DESC) AS rn\n           FROM tempo_medio_pagamento p\n        ), base_faixas AS (\n         SELECT f.clinica_id,\n            f.mes_ref,\n            to_date(f.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            f.faixa,\n            f.qtde,\n            f.percentual,\n            f.created_at,\n            row_number() OVER (PARTITION BY f.clinica_id, f.mes_ref ORDER BY f.created_at DESC) AS rn\n           FROM taxa_atraso_faixa f\n        ), pivot_faixas AS (\n         SELECT base_faixas.clinica_id,\n            base_faixas.mes_ref,\n            base_faixas.mes_ref_date,\n            max(\n                CASE\n                    WHEN ((base_faixas.faixa ~~* '%0%'::text) OR (base_faixas.faixa ~~* '%30%'::text)) THEN base_faixas.percentual\n                    ELSE NULL::numeric\n                END) AS percentual_faixa_0_30,\n            max(\n                CASE\n                    WHEN ((base_faixas.faixa ~~* '%31%'::text) OR (base_faixas.faixa ~~* '%60%'::text)) THEN base_faixas.percentual\n                    ELSE NULL::numeric\n                END) AS percentual_faixa_31_60,\n            max(\n                CASE\n                    WHEN ((base_faixas.faixa ~~* '%61%'::text) OR (base_faixas.faixa ~~* '%90%'::text)) THEN base_faixas.percentual\n                    ELSE NULL::numeric\n                END) AS percentual_faixa_61_90,\n            max(\n                CASE\n                    WHEN ((base_faixas.faixa ~~* '%90%'::text) AND (base_faixas.faixa ~~* '%+'::text)) THEN base_faixas.percentual\n                    ELSE NULL::numeric\n                END) AS percentual_faixa_90_plus\n           FROM base_faixas\n          WHERE (base_faixas.rn = 1)\n          GROUP BY base_faixas.clinica_id, base_faixas.mes_ref, base_faixas.mes_ref_date\n        )\n SELECT COALESCE(tv.clinica_id, tp.clinica_id, pf.clinica_id) AS clinica_id,\n    COALESCE(tv.mes_ref, tp.mes_ref, pf.mes_ref) AS mes_ref,\n    COALESCE(tv.mes_ref_date, tp.mes_ref_date, pf.mes_ref_date) AS mes_ref_date,\n    tv.taxa_pago_no_vencimento,\n    tp.tempo_medio_pagamento_dias,\n    pf.percentual_faixa_0_30,\n    pf.percentual_faixa_31_60,\n    pf.percentual_faixa_61_90,\n    pf.percentual_faixa_90_plus\n   FROM ((base_taxa_venc tv\n     FULL JOIN base_tempo_pag tp ON (((tv.clinica_id = tp.clinica_id) AND (tv.mes_ref = tp.mes_ref))))\n     FULL JOIN pivot_faixas pf ON (((pf.clinica_id = COALESCE(tv.clinica_id, tp.clinica_id)) AND (pf.mes_ref = COALESCE(tv.mes_ref, tp.mes_ref)))))\n  ORDER BY COALESCE(tv.clinica_id, tp.clinica_id, pf.clinica_id), COALESCE(tv.mes_ref_date, tp.mes_ref_date, pf.mes_ref_date);"
+    },
+    {
+      "schema": "public",
+      "name": "vw_parcelamentos",
+      "columns": [
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "mes_ref_date",
+          "data_type": "date",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "date"
+        },
+        {
+          "column_name": "qtde_registros",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "media_parcelas_pond",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "max_parcelas_mes",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "norm_parcelas",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        }
+      ],
+      "definition": " WITH base AS (\n         SELECT p.clinica_id,\n            p.mes_ref,\n            to_date(p.mes_ref, 'YYYY-MM'::text) AS mes_ref_date,\n            p.qtde_parcelas,\n            p.qtde,\n            p.percentual,\n            p.created_at,\n            row_number() OVER (PARTITION BY p.clinica_id, p.mes_ref ORDER BY p.created_at DESC) AS rn\n           FROM parcelamentos_detalhe p\n        ), agg AS (\n         SELECT base.clinica_id,\n            base.mes_ref,\n            base.mes_ref_date,\n            sum(base.qtde) AS qtde_registros,\n                CASE\n                    WHEN (sum(base.qtde) > 0) THEN (sum(((base.qtde)::numeric * (base.qtde_parcelas)::numeric)) / (sum(base.qtde))::numeric)\n                    ELSE NULL::numeric\n                END AS media_parcelas_pond,\n            max(base.qtde_parcelas) AS max_parcelas_mes\n           FROM base\n          WHERE (base.rn = 1)\n          GROUP BY base.clinica_id, base.mes_ref, base.mes_ref_date\n        ), norm AS (\n         SELECT a.clinica_id,\n            a.mes_ref,\n            a.mes_ref_date,\n            a.qtde_registros,\n            a.media_parcelas_pond,\n            a.max_parcelas_mes,\n                CASE\n                    WHEN (a.max_parcelas_mes > 0) THEN GREATEST((0)::numeric, LEAST((1)::numeric, ((1)::numeric - (a.media_parcelas_pond / (a.max_parcelas_mes)::numeric))))\n                    ELSE NULL::numeric\n                END AS norm_parcelas\n           FROM agg a\n        )\n SELECT clinica_id,\n    mes_ref,\n    mes_ref_date,\n    qtde_registros,\n    media_parcelas_pond,\n    max_parcelas_mes,\n    norm_parcelas\n   FROM norm\n  ORDER BY clinica_id, mes_ref_date;"
+    },
+    {
+      "schema": "public",
+      "name": "vw_score_credito",
+      "columns": [
+        {
+          "column_name": "clinica_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "clinica_nome",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "cnpj",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "external_id",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "mes_ref",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "mes_ref_date",
+          "data_type": "date",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "date"
+        },
+        {
+          "column_name": "qtde_boletos",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "valor_total_emitido",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "valor_medio_boleto",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "taxa_pago_no_vencimento",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "tempo_medio_pagamento_dias",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "taxa_inadimplencia",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "qtde_registros",
+          "data_type": "bigint",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 64,
+          "numeric_scale": 0,
+          "udt_name": "int8"
+        },
+        {
+          "column_name": "media_parcelas_pond",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "max_parcelas_mes",
+          "data_type": "integer",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": 32,
+          "numeric_scale": 0,
+          "udt_name": "int4"
+        },
+        {
+          "column_name": "norm_parcelas",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "max_inadimplencia",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "max_valor_medio",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "norm_inadimplencia",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "norm_valor_medio",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_credito",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_mes_anterior",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "score_variacao_vs_m1",
+          "data_type": "numeric",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "numeric"
+        },
+        {
+          "column_name": "categoria_risco",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        }
+      ],
+      "definition": " WITH ind AS (\n         SELECT vw_indicadores_gerais.clinica_id,\n            vw_indicadores_gerais.clinica_nome,\n            vw_indicadores_gerais.cnpj,\n            vw_indicadores_gerais.external_id,\n            vw_indicadores_gerais.mes_ref_date,\n            vw_indicadores_gerais.mes_ref,\n            vw_indicadores_gerais.qtde_boletos,\n            vw_indicadores_gerais.valor_total_emitido,\n            vw_indicadores_gerais.valor_medio_boleto,\n            vw_indicadores_gerais.taxa_pago_no_vencimento,\n            vw_indicadores_gerais.tempo_medio_pagamento_dias,\n            vw_indicadores_gerais.taxa_inadimplencia\n           FROM vw_indicadores_gerais\n        ), parc AS (\n         SELECT vw_parcelamentos.clinica_id,\n            vw_parcelamentos.mes_ref,\n            vw_parcelamentos.mes_ref_date,\n            vw_parcelamentos.qtde_registros,\n            vw_parcelamentos.media_parcelas_pond,\n            vw_parcelamentos.max_parcelas_mes,\n            vw_parcelamentos.norm_parcelas\n           FROM vw_parcelamentos\n        ), global_max AS (\n         SELECT max(ind.taxa_inadimplencia) AS max_inadimplencia,\n            max(ind.valor_medio_boleto) AS max_valor_medio\n           FROM ind\n        ), base AS (\n         SELECT i.clinica_id,\n            i.clinica_nome,\n            i.cnpj,\n            i.external_id,\n            i.mes_ref,\n            i.mes_ref_date,\n            i.qtde_boletos,\n            i.valor_total_emitido,\n            i.valor_medio_boleto,\n            i.taxa_pago_no_vencimento,\n            i.tempo_medio_pagamento_dias,\n            i.taxa_inadimplencia,\n            p.qtde_registros,\n            p.media_parcelas_pond,\n            p.max_parcelas_mes,\n            p.norm_parcelas,\n            gm.max_inadimplencia,\n            gm.max_valor_medio\n           FROM ((ind i\n             LEFT JOIN parc p ON (((p.clinica_id = i.clinica_id) AND (p.mes_ref = i.mes_ref))))\n             CROSS JOIN global_max gm)\n        ), norm AS (\n         SELECT base.clinica_id,\n            base.clinica_nome,\n            base.cnpj,\n            base.external_id,\n            base.mes_ref,\n            base.mes_ref_date,\n            base.qtde_boletos,\n            base.valor_total_emitido,\n            base.valor_medio_boleto,\n            base.taxa_pago_no_vencimento,\n            base.tempo_medio_pagamento_dias,\n            base.taxa_inadimplencia,\n            base.qtde_registros,\n            base.media_parcelas_pond,\n            base.max_parcelas_mes,\n            base.norm_parcelas,\n            base.max_inadimplencia,\n            base.max_valor_medio,\n                CASE\n                    WHEN ((base.max_inadimplencia > (0)::numeric) AND (base.taxa_inadimplencia IS NOT NULL)) THEN GREATEST((0)::numeric, LEAST((1)::numeric, ((1)::numeric - (base.taxa_inadimplencia / base.max_inadimplencia))))\n                    ELSE NULL::numeric\n                END AS norm_inadimplencia,\n                CASE\n                    WHEN ((base.max_valor_medio > (0)::numeric) AND (base.valor_medio_boleto IS NOT NULL)) THEN GREATEST((0)::numeric, LEAST((1)::numeric, (base.valor_medio_boleto / base.max_valor_medio)))\n                    ELSE NULL::numeric\n                END AS norm_valor_medio\n           FROM base\n        ), score_calc AS (\n         SELECT norm.clinica_id,\n            norm.clinica_nome,\n            norm.cnpj,\n            norm.external_id,\n            norm.mes_ref,\n            norm.mes_ref_date,\n            norm.qtde_boletos,\n            norm.valor_total_emitido,\n            norm.valor_medio_boleto,\n            norm.taxa_pago_no_vencimento,\n            norm.tempo_medio_pagamento_dias,\n            norm.taxa_inadimplencia,\n            norm.qtde_registros,\n            norm.media_parcelas_pond,\n            norm.max_parcelas_mes,\n            norm.norm_parcelas,\n            norm.max_inadimplencia,\n            norm.max_valor_medio,\n            norm.norm_inadimplencia,\n            norm.norm_valor_medio,\n            (((0.5 * norm.norm_inadimplencia) + (0.3 * norm.norm_parcelas)) + (0.2 * norm.norm_valor_medio)) AS score_credito\n           FROM norm\n        ), score_m1 AS (\n         SELECT s1.clinica_id,\n            s1.clinica_nome,\n            s1.cnpj,\n            s1.external_id,\n            s1.mes_ref,\n            s1.mes_ref_date,\n            s1.qtde_boletos,\n            s1.valor_total_emitido,\n            s1.valor_medio_boleto,\n            s1.taxa_pago_no_vencimento,\n            s1.tempo_medio_pagamento_dias,\n            s1.taxa_inadimplencia,\n            s1.qtde_registros,\n            s1.media_parcelas_pond,\n            s1.max_parcelas_mes,\n            s1.norm_parcelas,\n            s1.max_inadimplencia,\n            s1.max_valor_medio,\n            s1.norm_inadimplencia,\n            s1.norm_valor_medio,\n            s1.score_credito,\n            ( SELECT s2.score_credito\n                   FROM score_calc s2\n                  WHERE ((s2.clinica_id = s1.clinica_id) AND (s2.mes_ref_date = (s1.mes_ref_date - '1 mon'::interval)))\n                 LIMIT 1) AS score_mes_anterior\n           FROM score_calc s1\n        ), final AS (\n         SELECT score_m1.clinica_id,\n            score_m1.clinica_nome,\n            score_m1.cnpj,\n            score_m1.external_id,\n            score_m1.mes_ref,\n            score_m1.mes_ref_date,\n            score_m1.qtde_boletos,\n            score_m1.valor_total_emitido,\n            score_m1.valor_medio_boleto,\n            score_m1.taxa_pago_no_vencimento,\n            score_m1.tempo_medio_pagamento_dias,\n            score_m1.taxa_inadimplencia,\n            score_m1.qtde_registros,\n            score_m1.media_parcelas_pond,\n            score_m1.max_parcelas_mes,\n            score_m1.norm_parcelas,\n            score_m1.max_inadimplencia,\n            score_m1.max_valor_medio,\n            score_m1.norm_inadimplencia,\n            score_m1.norm_valor_medio,\n            score_m1.score_credito,\n            score_m1.score_mes_anterior,\n            (score_m1.score_credito - score_m1.score_mes_anterior) AS score_variacao_vs_m1,\n                CASE\n                    WHEN (score_m1.score_credito >= 0.80) THEN 'A (Excelente)'::text\n                    WHEN (score_m1.score_credito >= 0.60) THEN 'B (Bom)'::text\n                    WHEN (score_m1.score_credito >= 0.45) THEN 'C (Regular)'::text\n                    WHEN (score_m1.score_credito >= 0.30) THEN 'D (Ruim)'::text\n                    ELSE 'E (Crítico)'::text\n                END AS categoria_risco\n           FROM score_m1\n        )\n SELECT clinica_id,\n    clinica_nome,\n    cnpj,\n    external_id,\n    mes_ref,\n    mes_ref_date,\n    qtde_boletos,\n    valor_total_emitido,\n    valor_medio_boleto,\n    taxa_pago_no_vencimento,\n    tempo_medio_pagamento_dias,\n    taxa_inadimplencia,\n    qtde_registros,\n    media_parcelas_pond,\n    max_parcelas_mes,\n    norm_parcelas,\n    max_inadimplencia,\n    max_valor_medio,\n    norm_inadimplencia,\n    norm_valor_medio,\n    score_credito,\n    score_mes_anterior,\n    score_variacao_vs_m1,\n    categoria_risco\n   FROM final\n  ORDER BY clinica_id, mes_ref_date;"
+    },
+    {
+      "schema": "vault",
+      "name": "decrypted_secrets",
+      "columns": [
+        {
+          "column_name": "id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "name",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "description",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "secret",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "decrypted_secret",
+          "data_type": "text",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "text"
+        },
+        {
+          "column_name": "key_id",
+          "data_type": "uuid",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "uuid"
+        },
+        {
+          "column_name": "nonce",
+          "data_type": "bytea",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "bytea"
+        },
+        {
+          "column_name": "created_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        },
+        {
+          "column_name": "updated_at",
+          "data_type": "timestamp with time zone",
+          "is_nullable": "YES",
+          "column_default": null,
+          "character_maximum_length": null,
+          "numeric_precision": null,
+          "numeric_scale": null,
+          "udt_name": "timestamptz"
+        }
+      ],
+      "definition": " SELECT id,\n    name,\n    description,\n    secret,\n    convert_from(vault._crypto_aead_det_decrypt(message => decode(secret, 'base64'::text), additional => convert_to((id)::text, 'utf8'::name), key_id => (0)::bigint, context => '\\x7067736f6469756d'::bytea, nonce => nonce), 'utf8'::name) AS decrypted_secret,\n    key_id,\n    nonce,\n    created_at,\n    updated_at\n   FROM vault.secrets s;"
+    }
+  ],
+  "materialized_views": [],
+  "enums": [
+    {
+      "enum_schema": "auth",
+      "enum_name": "aal_level",
+      "enum_value": "aal1"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "aal_level",
+      "enum_value": "aal2"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "aal_level",
+      "enum_value": "aal3"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "code_challenge_method",
+      "enum_value": "s256"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "code_challenge_method",
+      "enum_value": "plain"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "factor_status",
+      "enum_value": "unverified"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "factor_status",
+      "enum_value": "verified"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "factor_type",
+      "enum_value": "totp"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "factor_type",
+      "enum_value": "webauthn"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "factor_type",
+      "enum_value": "phone"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_authorization_status",
+      "enum_value": "pending"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_authorization_status",
+      "enum_value": "approved"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_authorization_status",
+      "enum_value": "denied"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_authorization_status",
+      "enum_value": "expired"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_client_type",
+      "enum_value": "public"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_client_type",
+      "enum_value": "confidential"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_registration_type",
+      "enum_value": "dynamic"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_registration_type",
+      "enum_value": "manual"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "oauth_response_type",
+      "enum_value": "code"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "one_time_token_type",
+      "enum_value": "confirmation_token"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "one_time_token_type",
+      "enum_value": "reauthentication_token"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "one_time_token_type",
+      "enum_value": "recovery_token"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "one_time_token_type",
+      "enum_value": "email_change_token_new"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "one_time_token_type",
+      "enum_value": "email_change_token_current"
+    },
+    {
+      "enum_schema": "auth",
+      "enum_name": "one_time_token_type",
+      "enum_value": "phone_change_token"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "action",
+      "enum_value": "INSERT"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "action",
+      "enum_value": "UPDATE"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "action",
+      "enum_value": "DELETE"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "action",
+      "enum_value": "TRUNCATE"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "action",
+      "enum_value": "ERROR"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "equality_op",
+      "enum_value": "eq"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "equality_op",
+      "enum_value": "neq"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "equality_op",
+      "enum_value": "lt"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "equality_op",
+      "enum_value": "lte"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "equality_op",
+      "enum_value": "gt"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "equality_op",
+      "enum_value": "gte"
+    },
+    {
+      "enum_schema": "realtime",
+      "enum_name": "equality_op",
+      "enum_value": "in"
+    },
+    {
+      "enum_schema": "storage",
+      "enum_name": "buckettype",
+      "enum_value": "STANDARD"
+    },
+    {
+      "enum_schema": "storage",
+      "enum_name": "buckettype",
+      "enum_value": "ANALYTICS"
+    }
+  ]
+}

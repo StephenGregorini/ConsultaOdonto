@@ -11,3 +11,4 @@ venv/
 # Misc
 saida.json
 supabase_schema.json
+node_modules

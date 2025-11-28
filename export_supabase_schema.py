@@ -2,41 +2,46 @@ import os
 import json
 import psycopg2
 from psycopg2.extras import DictCursor
-from dotenv import load_dotenv   
-load_dotenv()                    
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # ==========================
 # CONFIGURAÇÃO
 # ==========================
 
-# Opção 1: usar variável de ambiente SUPABASE_DB_URL
 DATABASE_URL = os.getenv("SUPABASE_DB_URL")
-
-# Opção 2: colar aqui diretamente (menos seguro, mas rápido para teste)
-# DATABASE_URL = "postgres://usuario:senha@host:5432/postgres"
 
 if not DATABASE_URL:
     raise RuntimeError(
-        "Defina a variável de ambiente SUPABASE_DB_URL "
-        "ou preencha a DATABASE_URL diretamente no script."
+        "Defina SUPABASE_DB_URL no .env ou ajuste diretamente no script."
     )
 
-OUTPUT_FILE = "supabase_schema.json"
-
+OUTPUT_FILE = "supabase_schema_full.json"
 
 # ==========================
-# FUNÇÕES DE COLETA
+# HELPERS
 # ==========================
 
-def get_tables(conn):
+def mask_database_url(url: str) -> str:
     """
-    Retorna lista de tabelas (schema, nome) ignorando schemas de sistema.
+    Mascara usuário e senha da URL, mantendo host e database visíveis.
     """
+    try:
+        prefix, rest = url.split("://", 1)
+        auth, rest2 = rest.split("@", 1)
+        user, _ = auth.split(":", 1)
+        return f"{prefix}://{user}:***@{rest2}"
+    except:
+        return url
+
+# ==========================
+# COLETORES DE METADADOS
+# ==========================
+
+def list_tables(conn):
     query = """
-        SELECT
-            table_schema,
-            table_name
+        SELECT table_schema, table_name
         FROM information_schema.tables
         WHERE table_type = 'BASE TABLE'
           AND table_schema NOT IN ('pg_catalog', 'information_schema')
@@ -46,11 +51,29 @@ def get_tables(conn):
         cur.execute(query)
         return cur.fetchall()
 
+def list_views(conn):
+    query = """
+        SELECT table_schema, table_name
+        FROM information_schema.views
+        WHERE table_schema NOT IN ('pg_catalog', 'information_schema')
+        ORDER BY table_schema, table_name;
+    """
+    with conn.cursor(cursor_factory=DictCursor) as cur:
+        cur.execute(query)
+        return cur.fetchall()
 
-def get_columns(conn, schema, table):
+def list_matviews(conn):
+    query = """
+        SELECT schemaname AS table_schema,
+               matviewname AS table_name
+        FROM pg_matviews
+        ORDER BY schemaname, matviewname;
     """
-    Retorna colunas de uma tabela com tipo, nullability e default.
-    """
+    with conn.cursor(cursor_factory=DictCursor) as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
+def list_columns(conn, schema, table):
     query = """
         SELECT
             column_name,
@@ -59,7 +82,8 @@ def get_columns(conn, schema, table):
             column_default,
             character_maximum_length,
             numeric_precision,
-            numeric_scale
+            numeric_scale,
+            udt_name
         FROM information_schema.columns
         WHERE table_schema = %s
           AND table_name = %s
@@ -69,14 +93,9 @@ def get_columns(conn, schema, table):
         cur.execute(query, (schema, table))
         return cur.fetchall()
 
-
-def get_primary_keys(conn, schema, table):
-    """
-    Retorna as colunas que fazem parte da primary key de uma tabela.
-    """
+def list_primary_keys(conn, schema, table):
     query = """
-        SELECT
-            a.attname AS column_name
+        SELECT a.attname AS column_name
         FROM pg_index i
         JOIN pg_class c ON c.oid = i.indrelid
         JOIN pg_namespace n ON n.oid = c.relnamespace
@@ -92,11 +111,7 @@ def get_primary_keys(conn, schema, table):
         rows = cur.fetchall()
         return [r["column_name"] for r in rows]
 
-
-def get_foreign_keys(conn, schema, table):
-    """
-    Retorna foreign keys de uma tabela, com colunas locais e de referência.
-    """
+def list_foreign_keys(conn, schema, table):
     query = """
         SELECT
             tc.constraint_name,
@@ -106,11 +121,11 @@ def get_foreign_keys(conn, schema, table):
             ccu.column_name  AS foreign_column_name
         FROM information_schema.table_constraints AS tc
         JOIN information_schema.key_column_usage AS kcu
-          ON tc.constraint_name = kcu.constraint_name
-         AND tc.table_schema = kcu.table_schema
+            ON tc.constraint_name = kcu.constraint_name
+           AND tc.table_schema = kcu.table_schema
         JOIN information_schema.constraint_column_usage AS ccu
-          ON ccu.constraint_name = tc.constraint_name
-         AND ccu.table_schema = tc.table_schema
+            ON ccu.constraint_name = tc.constraint_name
+           AND ccu.table_schema = tc.table_schema
         WHERE tc.constraint_type = 'FOREIGN KEY'
           AND tc.table_schema = %s
           AND tc.table_name = %s
@@ -120,93 +135,125 @@ def get_foreign_keys(conn, schema, table):
         cur.execute(query, (schema, table))
         return cur.fetchall()
 
+def list_enums(conn):
+    query = """
+        SELECT
+            n.nspname AS enum_schema,
+            t.typname AS enum_name,
+            e.enumlabel AS enum_value
+        FROM pg_type t
+        JOIN pg_enum e ON t.oid = e.enumtypid
+        JOIN pg_namespace n ON n.oid = t.typnamespace
+        WHERE n.nspname NOT IN ('pg_catalog', 'information_schema')
+        ORDER BY enum_schema, enum_name, e.enumsortorder;
+    """
+    with conn.cursor(cursor_factory=DictCursor) as cur:
+        cur.execute(query)
+        return cur.fetchall()
+
+def list_view_definitions(conn):
+    query = """
+        SELECT schemaname, viewname, definition
+        FROM pg_views
+        WHERE schemaname NOT IN ('pg_catalog', 'information_schema')
+        ORDER BY schemaname, viewname;
+    """
+    with conn.cursor(cursor_factory=DictCursor) as cur:
+        cur.execute(query)
+        return cur.fetchall()
 
 # ==========================
-# MAIN
+# EXPORTAÇÃO
 # ==========================
 
 def export_schema():
-    print("Conectando ao banco Supabase...")
+    print("🔌 Conectando ao banco Supabase...")
     conn = psycopg2.connect(DATABASE_URL)
 
     try:
-        print("Lendo lista de tabelas...")
-        tables = get_tables(conn)
-
-        schema_info = {
+        schema = {
             "database_url_masked": mask_database_url(DATABASE_URL),
-            "tables": []
+            "tables": [],
+            "views": [],
+            "materialized_views": [],
+            "enums": [],
         }
+
+        # ========= TABELAS =========
+        print("📦 Lendo tabelas...")
+        tables = list_tables(conn)
 
         for t in tables:
             schema_name = t["table_schema"]
             table_name = t["table_name"]
-            print(f"Processando {schema_name}.{table_name}...")
 
-            cols = get_columns(conn, schema_name, table_name)
-            pks = get_primary_keys(conn, schema_name, table_name)
-            fks = get_foreign_keys(conn, schema_name, table_name)
+            cols = list_columns(conn, schema_name, table_name)
+            pks = list_primary_keys(conn, schema_name, table_name)
+            fks = list_foreign_keys(conn, schema_name, table_name)
 
-            table_dict = {
+            schema["tables"].append({
                 "schema": schema_name,
-                "table": table_name,
-                "columns": [],
+                "name": table_name,
+                "columns": [dict(c) for c in cols],
                 "primary_key": pks,
-                "foreign_keys": []
-            }
+                "foreign_keys": [dict(fk) for fk in fks],
+            })
 
-            # Colunas
-            for c in cols:
-                col = {
-                    "name": c["column_name"],
-                    "data_type": c["data_type"],
-                    "is_nullable": c["is_nullable"],
-                    "default": c["column_default"],
-                    "char_max_length": c["character_maximum_length"],
-                    "numeric_precision": c["numeric_precision"],
-                    "numeric_scale": c["numeric_scale"],
-                }
-                table_dict["columns"].append(col)
+        # ========= VIEWS =========
+        print("🔍 Lendo views...")
+        views = list_views(conn)
+        view_defs = { (v["schemaname"], v["viewname"]): v["definition"]
+                      for v in list_view_definitions(conn) }
 
-            # Foreign keys
-            for fk in fks:
-                fk_dict = {
-                    "constraint_name": fk["constraint_name"],
-                    "column": fk["column_name"],
-                    "foreign_table_schema": fk["foreign_table_schema"],
-                    "foreign_table": fk["foreign_table_name"],
-                    "foreign_column": fk["foreign_column_name"],
-                }
-                table_dict["foreign_keys"].append(fk_dict)
+        for v in views:
+            schema_name = v["table_schema"]
+            view_name = v["table_name"]
 
-            schema_info["tables"].append(table_dict)
+            cols = list_columns(conn, schema_name, view_name)
 
-        # Salvar em JSON
+            schema["views"].append({
+                "schema": schema_name,
+                "name": view_name,
+                "columns": [dict(c) for c in cols],
+                "definition": view_defs.get((schema_name, view_name)),
+            })
+
+        # ========= MATERIALIZED VIEWS =========
+        print("🔍 Lendo materialized views...")
+        matviews = list_matviews(conn)
+
+        for mv in matviews:
+            schema_name = mv["table_schema"]
+            mv_name = mv["table_name"]
+
+            cols = list_columns(conn, schema_name, mv_name)
+
+            schema["materialized_views"].append({
+                "schema": schema_name,
+                "name": mv_name,
+                "columns": [dict(c) for c in cols],
+            })
+
+        # ========= ENUMS =========
+        print("🎨 Lendo tipos ENUM...")
+        enums = list_enums(conn)
+        for e in enums:
+            schema["enums"].append(dict(e))
+
+        # ========= SALVAR =========
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-            json.dump(schema_info, f, ensure_ascii=False, indent=2)
+            json.dump(schema, f, indent=2, ensure_ascii=False)
 
-        print(f"\n✅ Exportação concluída! Arquivo gerado: {OUTPUT_FILE}")
+        print(f"\n✅ Schema completo exportado com sucesso → {OUTPUT_FILE}")
 
     finally:
         conn.close()
-        print("Conexão encerrada.")
+        print("🔌 Conexão encerrada.")
 
 
-def mask_database_url(url: str) -> str:
-    """
-    Mascara usuário e senha da URL, mantendo host e database visíveis,
-    só para referência rápida.
-    """
-    # Formatos tipo: postgres://user:pass@host:port/db
-    try:
-        prefix, rest = url.split("://", 1)
-        auth, rest2 = rest.split("@", 1)
-        user, _ = auth.split(":", 1)
-        return f"{prefix}://{user}:***@{rest2}"
-    except Exception:
-        # Se der ruim, só não mascara
-        return url
-
+# ==========================
+# MAIN
+# ==========================
 
 if __name__ == "__main__":
     export_schema()
