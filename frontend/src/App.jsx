@@ -11,8 +11,9 @@ import Perfil from "./Perfil";
 
 import Layout from "./Layout";
 import ProtectedRoute from "./ProtectedRoute";
-import { DashboardProvider } from "./DashboardContext";
 import AdminShell from "./AdminShell";
+
+import { DashboardProvider } from "./DashboardContext";
 
 function LoginPage() {
   return <Login />;
@@ -21,68 +22,67 @@ function LoginPage() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      {/* 🔥 Agora TODO o app tem acesso ao DashboardProvider
+          e ele NUNCA é desmontado ao trocar de rotas */}
+      <DashboardProvider>
+        <Routes>
 
-        {/* LOGIN */}
-        <Route path="/login" element={<LoginPage />} />
+          {/* LOGIN */}
+          <Route path="/login" element={<LoginPage />} />
 
-        {/* ÁREA PUBLICA */}
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Upload />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+          {/* ÁREA PÚBLICA */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Upload />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/historico"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Historico />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/historico"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Historico />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-        {/* ÁREA ADMIN */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute requireAdmin>
-              <DashboardProvider>
+          {/* ÁREA ADMIN */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute requireAdmin>
                 <AdminShell />
-              </DashboardProvider>
-            </ProtectedRoute>
-          }
-        >
+              </ProtectedRoute>
+            }
+          >
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="clinicas" element={<Clinicas />} />
+            <Route path="dados" element={<Dados />} />
+          </Route>
 
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="clinicas" element={<Clinicas />} />
-          <Route path="dados" element={<Dados />} />
+          {/* PERFIL */}
+          <Route
+            path="/perfil"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Perfil />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
 
-        </Route>
-
-        {/* PERFIL */}
-        <Route
-          path="/perfil"
-          element={
-            <ProtectedRoute>
-              <Layout>
-                <Perfil />
-              </Layout>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* DEFAULT */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-
-      </Routes>
+          {/* DEFAULT */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </DashboardProvider>
     </BrowserRouter>
   );
 }
