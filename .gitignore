@@ -12,3 +12,5 @@ venv/
 saida.json
 supabase_schema.json
 node_modules
+.vercel
+.env*.local
