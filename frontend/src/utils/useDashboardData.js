@@ -4,7 +4,7 @@ import { API_BASE_URL } from "../apiConfig";
 async function fetchHistoricoLimites(clinicaId) {
   if (!clinicaId || clinicaId === "todas") return [];
   try {
-    const res = await fetch(`${API_BASE}/clinicas/${clinicaId}/limites`);
+    const res = await fetch(`${API_BASE_URL}/clinicas/${clinicaId}/limites`);
     if (!res.ok) return [];
     return await res.json();
   } catch (e) {
@@ -36,7 +36,7 @@ export function useDashboardData({ clinicaId, janelaMeses, inicio, fim }) {
         params.set("clinica_id", clinicaId);
       }
 
-      const url = `${API_BASE}/dashboard?${params.toString()}`;
+      const url = `${API_BASE_URL}/dashboard?${params.toString()}`;
       const res = await fetch(url);
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);

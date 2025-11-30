@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 import Logo from "./assets/logo_escuro.svg";
 
-export default function Login({ onLogin }) {
+export default function Login() {
   const { signIn } = useAuth();
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState(null);
@@ -23,13 +26,13 @@ export default function Login({ onLogin }) {
       return;
     }
 
-    onLogin?.();
+    // 🔥 Login OK → joga pra home
+    navigate("/", { replace: true });
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-50 flex items-center justify-center px-4">
       <div className="max-w-sm w-full bg-slate-900/60 border border-slate-800 rounded-3xl p-8 backdrop-blur shadow-xl">
-
         <div className="flex justify-center mb-6">
           <img src={Logo} className="h-12 opacity-90" alt="MedSimples" />
         </div>
@@ -39,7 +42,6 @@ export default function Login({ onLogin }) {
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
           <div>
             <label className="block text-sm text-slate-300 mb-1">Email</label>
             <input

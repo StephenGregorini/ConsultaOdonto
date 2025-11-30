@@ -2,7 +2,7 @@ import React from "react";
 import { useDashboard } from "../DashboardContext";
 import { formatMesRef } from "../utils/formatters";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({ onExport }) {
   const { profile, dados } = useDashboard();
   const periodo = dados?.filtros?.periodo;
   const contexto = dados?.contexto;
@@ -51,6 +51,12 @@ export default function DashboardHeader() {
             {profile?.nome || profile?.email}
           </span>
         </div>
+        <button 
+          onClick={onExport} 
+          className="mt-2 px-3 py-1 bg-sky-600 text-white rounded hover:bg-sky-700 text-sm"
+        >
+          Exportar para XLSX
+        </button>
       </div>
     </header>
   );

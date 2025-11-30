@@ -1,7 +1,6 @@
 import React, { useState, useRef, useMemo } from "react";
 import HistoricoModal from "./HistoricoModal";
 import { API_BASE_URL } from "./apiConfig";
-import { API_BASE_URL } from "./apiConfig";
 
 export default function Upload() {
   const [files, setFiles] = useState([]); // AGORA É UM ARRAY

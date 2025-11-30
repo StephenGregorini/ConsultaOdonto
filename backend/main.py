@@ -6,10 +6,14 @@ import requests
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List, Dict, Any
 from processor import processar_excel
 
 
+
+from io import BytesIO
+from openpyxl import Workbook
+from fastapi.responses import StreamingResponse
 
 # ==========================
 # CONFIG SUPABASE
@@ -39,24 +43,80 @@ class LimiteAprovadoPayload(BaseModel):
     observacao: str | None = None
     aprovado_por: str | None = None
 
+# New Pydantic Models for Dashboard Data
+class DashboardFiltrosPeriodo(BaseModel):
+    min_mes_ref: Optional[str] = None
+    max_mes_ref: Optional[str] = None
+
+class DashboardContext(BaseModel):
+    clinica_id: Optional[str] = None
+    clinica_nome: Optional[str] = None
+
+class DashboardKpis(BaseModel):
+    score_atual: Optional[float] = None
+    score_mes_anterior: Optional[float] = None
+    score_variacao_vs_m1: Optional[float] = None
+    categoria_risco: Optional[str] = None
+    limite_aprovado: Optional[float] = None
+    valor_total_emitido_12m: Optional[float] = None
+    valor_total_emitido_ultimo_mes: Optional[float] = None
+    inadimplencia_media_12m: Optional[float] = None
+    inadimplencia_ultimo_mes: Optional[float] = None
+    taxa_pago_no_vencimento_media_12m: Optional[float] = None
+    taxa_pago_no_vencimento_ultimo_mes: Optional[float] = None
+    ticket_medio_12m: Optional[float] = None
+    ticket_medio_ultimo_mes: Optional[float] = None
+    tempo_medio_pagamento_media_12m: Optional[float] = None
+    tempo_medio_pagamento_ultimo_mes: Optional[float] = None
+    limite_sugerido: Optional[float] = None
+    limite_sugerido_base_media12m: Optional[float] = None
+    limite_sugerido_base_media3m: Optional[float] = None
+    limite_sugerido_base_ultimo_mes: Optional[float] = None
+    limite_sugerido_base_mensal_mix: Optional[float] = None
+    limite_sugerido_fator: Optional[float] = None
+    limite_sugerido_teto_global: Optional[float] = None
+    limite_sugerido_share_portfolio_12m: Optional[float] = None
+
+class DashboardSeries(BaseModel):
+    score_por_mes: Optional[List[Dict[str, Any]]] = None
+    valor_emitido_por_mes: Optional[List[Dict[str, Any]]] = None
+    inadimplencia_por_mes: Optional[List[Dict[str, Any]]] = None
+    taxa_pago_no_vencimento_por_mes: Optional[List[Dict[str, Any]]] = None
+    tempo_medio_pagamento_por_mes: Optional[List[Dict[str, Any]]] = None
+    parcelas_media_por_mes: Optional[List[Dict[str, Any]]] = None
+
+class DashboardRankingClinicas(BaseModel):
+    clinica_id: Optional[str] = None
+    clinica_nome: Optional[str] = None
+    cnpj: Optional[str] = None
+    score_credito: Optional[float] = None
+    categoria_risco: Optional[str] = None
+    limite_aprovado: Optional[float] = None
+    valor_total_emitido_12m: Optional[float] = None
+    inadimplencia_media_12m: Optional[float] = None
+
+class DashboardData(BaseModel):
+    filtros: Dict[str, DashboardFiltrosPeriodo]
+    contexto: DashboardContext
+    kpis: DashboardKpis
+    series: DashboardSeries
+    ranking_clinicas: List[DashboardRankingClinicas]
+
 
 # ==========================
 # FASTAPI APP
 # ==========================
 
-
 app = FastAPI(title="MedSimples · Importação de dados")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=["*"],         # para DEV, libera tudo
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 # ==========================
@@ -480,6 +540,23 @@ async def dashboard_resumo_geral():
 # ==========================
 
 from pandas import Timestamp
+
+def _write_data_to_sheet(ws, data, title=None):
+    if title:
+        ws.append([title])
+        ws.append([]) # Add a blank row for spacing
+
+    if isinstance(data, dict):
+        for key, value in data.items():
+            ws.append([key, str(value)]) # Write key-value pairs
+    elif isinstance(data, list) and data:
+        # Assuming list of dictionaries, write header first
+        headers = list(data[0].keys())
+        ws.append(headers)
+        for row_data in data:
+            ws.append([row_data.get(header, "") for header in headers])
+    ws.append([]) # Add a blank row after each section
+
 
 def _safe_float(v):
     try:
@@ -1208,3 +1285,69 @@ async def dashboard_completo(
         },
         "ranking_clinicas": ranking,
     }
+
+
+@app.post("/export-dashboard", response_class=StreamingResponse)
+async def export_dashboard(dashboard_data: DashboardData):
+    """
+    Exporta um Excel simples com RESUMO POR CLÍNICA, usando apenas
+    o campo `ranking_clinicas` do DashboardData.
+
+    Colunas:
+    - Clínica
+    - CNPJ
+    - ID da clínica
+    - Score de crédito
+    - Categoria de risco
+    - Limite aprovado
+    - Valor total emitido (12m)
+    - Inadimplência média (12m)
+    """
+    output = BytesIO()
+    wb = Workbook()
+
+    # Usar a primeira planilha como "Resumo por clínica"
+    ws = wb.active
+    ws.title = "Resumo por clínica"
+
+    # Cabeçalhos
+    headers = [
+        "Clínica",
+        "CNPJ",
+        "ID Clínica",
+        "Score crédito",
+        "Categoria risco",
+        "Limite aprovado",
+        "Valor emitido 12m",
+        "Inadimplência média 12m",
+    ]
+    ws.append(headers)
+
+    # Preencher linhas a partir de ranking_clinicas
+    for item in dashboard_data.ranking_clinicas:
+        ws.append([
+            item.clinica_nome or "",
+            item.cnpj or "",
+            item.clinica_id or "",
+            item.score_credito if item.score_credito is not None else None,
+            item.categoria_risco or "",
+            item.limite_aprovado if item.limite_aprovado is not None else None,
+            item.valor_total_emitido_12m if item.valor_total_emitido_12m is not None else None,
+            item.inadimplencia_media_12m if item.inadimplencia_media_12m is not None else None,
+        ])
+
+    # Auto-ajuste básico de largura (opcional, mas ajuda a ficar mais legível)
+    for column_cells in ws.columns:
+        length = max(len(str(cell.value)) if cell.value is not None else 0 for cell in column_cells)
+        ws.column_dimensions[column_cells[0].column_letter].width = min(length + 2, 50)
+
+    wb.save(output)
+    output.seek(0)
+
+    filename = f"resumo_clinicas_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+
+    return StreamingResponse(
+        output,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": f"attachment; filename={filename}"},
+    )
