@@ -10,4 +10,5 @@ COPY backend .
 
 ENV PYTHONUNBUFFERED=1
 
-CMD uvicorn main:app --host 0.0.0.0 --port $PORT
+# 🚀 IMPORTANTE: usa o $PORT real do Railway
+CMD sh -c "uvicorn main:app --host 0.0.0.0 --port ${PORT}"
