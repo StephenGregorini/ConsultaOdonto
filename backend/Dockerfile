@@ -3,16 +3,17 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Copia dependências e instala
-COPY backend/requirements.txt .
+# Como o root do build é a pasta "backend",
+# o Docker enxerga "requirements.txt" direto aqui:
+COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia todo o backend
-COPY backend .
+# Copia todo o conteúdo da pasta backend
+COPY . .
 
-# Porta usada pelo Vercel (define a env PORT automaticamente)
+# Porta que o Vercel injeta via env PORT
 ENV PORT=8000
 ENV PYTHONUNBUFFERED=1
 
-# Executa FastAPI com uvicorn
 CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
