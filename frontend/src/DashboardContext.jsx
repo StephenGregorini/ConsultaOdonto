@@ -10,7 +10,9 @@ export function DashboardProvider({ children }) {
   const { profile } = useAuth();
   const location = useLocation();
   
+  // 🔥 CORREÇÃO AQUI — começar como "todas"
   const [clinicaId, setClinicaId] = useState("todas");
+
   const [janelaMeses, setJanelaMeses] = useState(12);
   const [periodoInicio, setPeriodoInicio] = useState("");
   const [periodoFim, setPeriodoFim] = useState("");
@@ -20,6 +22,7 @@ export function DashboardProvider({ children }) {
     const clinicaParam = params.get("clinica");
     setClinicaId(clinicaParam || "todas");
   }, [location.search]);
+
 
   const { clinicas, loading: loadingClinicas } = useClinicas();
   const {

@@ -76,7 +76,7 @@ export default function DashboardFilters() {
           </span>
 
           <Select
-            value={clinicaId}
+            value={clinicaId ?? "todas"}
             onChange={handleClinicaChange}
             loading={loadingClinicas}
             options={[
@@ -87,6 +87,8 @@ export default function DashboardFilters() {
               })),
             ]}
           />
+
+
 
           {loadingClinicas && (
             <span className="text-[10px] text-slate-500">Carregando...</span>

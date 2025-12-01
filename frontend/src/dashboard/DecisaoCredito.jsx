@@ -11,6 +11,23 @@ export default function DecisaoCredito() {
   const k = dados.kpis || {};
   const historico = dados.historico_limite || [];
 
+  // ----------------------------
+  // LÓGICA CORRIGIDA DO LIMITE
+  // ----------------------------
+
+  const nuncaTeveLimite = historico.length === 0;
+
+  // ultimoEvento é o mais recente – backend deve vir ordenado
+  const ultimoEvento = historico[0] || null;
+
+  // Se houver histórico e o último evento tiver limite_aprovado null → revogado
+  const foiRevogado = !!ultimoEvento && ultimoEvento.limite_aprovado === null;
+
+  // Se houver limite_aprovado atual no kpis → é o limite ativo
+  const limiteAtualAtivo =
+    k.limite_aprovado != null && !Number.isNaN(k.limite_aprovado);
+
+
   return (
     <section className="space-y-6">
 
@@ -48,15 +65,25 @@ export default function DecisaoCredito() {
             )}
           </div>
 
-          {/* Se limite for nulo → mostrar badge */}
-          {k.limite_aprovado === null ? (
+          {/* Caso 1 — Nunca teve limite aprovado */}
+          {nuncaTeveLimite && (
+            <div className="inline-flex items-center gap-2 mt-2">
+              <span className="text-slate-400 text-sm">Sem limite aprovado</span>
+            </div>
+          )}
+
+          {/* Caso 2 — Já teve limite e foi revogado */}
+          {!nuncaTeveLimite && foiRevogado && (
             <div className="inline-flex items-center gap-2 mt-2">
               <span className="text-slate-400 text-sm">Sem limite ativo</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40">
                 Revogado
               </span>
             </div>
-          ) : (
+          )}
+
+          {/* Caso 3 — Tem limite ativo */}
+          {limiteAtualAtivo && (
             <h3 className="text-xl font-semibold text-emerald-300">
               {formatCurrency(k.limite_aprovado)}
             </h3>
@@ -146,7 +173,7 @@ export default function DecisaoCredito() {
         </p>
       </div>
 
-      {/* HISTÓRICO DE LIMITES — substitui totalmente sua tabela antiga */}
+      {/* HISTÓRICO */}
       <HistoricoLimites historico={historico} />
     </section>
   );

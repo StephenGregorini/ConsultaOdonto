@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../apiConfig";
 
 async function fetchHistoricoLimites(clinicaId) {
@@ -32,6 +32,8 @@ export function useDashboardData({ clinicaId, janelaMeses, inicio, fim }) {
         params.set("meses", janelaMeses || 12);
       }
 
+      // 🔥 Aqui é a correção:
+      // Sempre faz fetch — só adiciona clinica_id quando NÃO for "todas"
       if (clinicaId && clinicaId !== "todas") {
         params.set("clinica_id", clinicaId);
       }
@@ -45,6 +47,7 @@ export function useDashboardData({ clinicaId, janelaMeses, inicio, fim }) {
       const historico = await fetchHistoricoLimites(clinicaId);
 
       setDados({ ...dashboardData, historico_limite: historico });
+
     } catch (e) {
       console.error("Erro ao carregar dashboard:", e);
       setErro("Erro ao carregar dados do dashboard.");
@@ -55,7 +58,6 @@ export function useDashboardData({ clinicaId, janelaMeses, inicio, fim }) {
 
   useEffect(() => {
     carregar();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clinicaId, janelaMeses, inicio, fim]);
 
   return {

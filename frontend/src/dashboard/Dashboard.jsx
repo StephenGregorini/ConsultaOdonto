@@ -1,3 +1,4 @@
+// /dashboard/Dashboard.jsx
 import React from "react";
 import { useDashboard } from "../DashboardContext";
 import DashboardHeader from "./DashboardHeader";
@@ -19,13 +20,14 @@ const TABS = [
 
 export default function Dashboard() {
   const { 
-    dados, 
-    loadingDashboard, 
-    erro, 
-    panelLimiteAberto, 
-    setPanelLimiteAberto, 
-    activeTab, 
-    setActiveTab 
+    dados,
+    loadingDashboard,
+    erro,
+    panelLimiteAberto,
+    setPanelLimiteAberto,
+    activeTab,
+    setActiveTab,
+    clinicaId // 🔥 AGORA IMPORTADO CORRETAMENTE
   } = useDashboard();
 
   const handleExport = async () => {
@@ -59,9 +61,11 @@ export default function Dashboard() {
 
   return (
     <div className="w-full space-y-8">
+
       <DashboardHeader onExport={handleExport} />
+
       <DashboardFilters />
-      
+
       <Tabs tabs={TABS} activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {loadingDashboard && <p>Carregando...</p>}
@@ -69,9 +73,24 @@ export default function Dashboard() {
 
       {dados && !loadingDashboard && !erro && (
         <>
+          {/* OVERVIEW */}
           {activeTab === "overview" && <Overview />}
-          {activeTab === "decisao" && <DecisaoCredito />}
+
+          {/* DECISÃO DE CRÉDITO */}
+          {activeTab === "decisao" && clinicaId && clinicaId !== "todas" && (
+            <DecisaoCredito />
+          )}
+
+          {activeTab === "decisao" && (!clinicaId || clinicaId === "todas") && (
+            <p className="text-slate-400 text-sm">
+              Selecione uma clínica específica para visualizar a decisão de crédito.
+            </p>
+          )}
+
+          {/* COMPORTAMENTO */}
           {activeTab === "comportamento" && <Comportamento />}
+
+          {/* CARTEIRA */}
           {activeTab === "carteira" && <Carteira />}
         </>
       )}
