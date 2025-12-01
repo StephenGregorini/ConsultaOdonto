@@ -17,6 +17,7 @@ export default function SidebarLimite({ open, onClose }) {
     profile,
     reloadDashboard,
     setPanelLimiteAberto,
+    loadingDashboard,
   } = useDashboard();
 
   const k = dados?.kpis || {};
@@ -24,7 +25,7 @@ export default function SidebarLimite({ open, onClose }) {
 
   const [valor, setValor] = useState("");
   const [obs, setObs] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [mensagem, setMensagem] = useState(null);
   const [showConfirmRevoke, setShowConfirmRevoke] = useState(false);
 
@@ -42,13 +43,13 @@ export default function SidebarLimite({ open, onClose }) {
     }
   }, [dados, k.limite_aprovado, k.limite_sugerido]);
 
-  if (!open || !dados) return null;
+  if (!open) return null;
 
   async function salvar(limite) {
     if (!clinicaId || clinicaId === "todas") return;
 
     try {
-      setLoading(true);
+      setSaving(true);
       setMensagem(null);
 
       const payload = {
@@ -78,7 +79,7 @@ export default function SidebarLimite({ open, onClose }) {
       console.error(err);
       setMensagem({ tipo: "erro", texto: "Erro ao salvar limite." });
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   }
 
@@ -138,7 +139,7 @@ export default function SidebarLimite({ open, onClose }) {
             </div>
             <button
               type="button"
-              disabled={loading}
+              disabled={saving}
               onClick={onClose}
               className="text-slate-500 hover:text-slate-200 text-sm"
             >
@@ -147,56 +148,62 @@ export default function SidebarLimite({ open, onClose }) {
           </div>
 
           {/* CONTENT */}
-          <div className="flex-1 px-5 py-4 space-y-4 overflow-y-auto">
-            <div>
-              <label className="block text-[11px] text-slate-400 mb-1">
-                Limite aprovado (R$)
-              </label>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={valor}
-                onChange={(e) => setValor(e.target.value)}
-                className="w-full rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 text-sm text-slate-100 outline-none focus:border-sky-500"
-                placeholder="Ex.: 1.000,00"
-              />
-              <p className="text-[10px] text-slate-500 mt-1">
-                Referência do modelo:{" "}
-                <span className="text-sky-300">{formatCurrency(k.limite_sugerido)}</span>
-              </p>
+          {loadingDashboard ? (
+            <div className="flex-1 flex items-center justify-center">
+              <p className="text-slate-400 text-sm animate-pulse">Carregando dados da clínica...</p>
             </div>
-
-            <div>
-              <label className="block text-[11px] text-slate-400 mb-1">
-                Observação (opcional)
-              </label>
-              <textarea
-                rows={3}
-                value={obs}
-                onChange={(e) => setObs(e.target.value)}
-                className="w-full rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 text-[11px] text-slate-100 outline-none focus:border-sky-500 resize-none"
-                placeholder="Ex.: aprovado em comitê de crédito..."
-              />
-            </div>
-
-            {mensagem && (
-              <div
-                className={`rounded-lg px-3 py-2 text-xs border ${
-                  mensagem.tipo === "erro"
-                    ? "bg-rose-900/40 border-rose-500/60 text-rose-100"
-                    : "bg-emerald-900/30 border-emerald-500/60 text-emerald-100"
-                }`}
-              >
-                {mensagem.texto}
+          ) : (
+            <div className="flex-1 px-5 py-4 space-y-4 overflow-y-auto">
+              <div>
+                <label className="block text-[11px] text-slate-400 mb-1">
+                  Limite aprovado (R$)
+                </label>
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  value={valor}
+                  onChange={(e) => setValor(e.target.value)}
+                  className="w-full rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 text-sm text-slate-100 outline-none focus:border-sky-500"
+                  placeholder="Ex.: 1.000,00"
+                />
+                <p className="text-[10px] text-slate-500 mt-1">
+                  Referência do modelo:{" "}
+                  <span className="text-sky-300">{formatCurrency(k.limite_sugerido)}</span>
+                </p>
               </div>
-            )}
-          </div>
+
+              <div>
+                <label className="block text-[11px] text-slate-400 mb-1">
+                  Observação (opcional)
+                </label>
+                <textarea
+                  rows={3}
+                  value={obs}
+                  onChange={(e) => setObs(e.target.value)}
+                  className="w-full rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 text-[11px] text-slate-100 outline-none focus:border-sky-500 resize-none"
+                  placeholder="Ex.: aprovado em comitê de crédito..."
+                />
+              </div>
+
+              {mensagem && (
+                <div
+                  className={`rounded-lg px-3 py-2 text-xs border ${
+                    mensagem.tipo === "erro"
+                      ? "bg-rose-900/40 border-rose-500/60 text-rose-100"
+                      : "bg-emerald-900/30 border-emerald-500/60 text-emerald-100"
+                  }`}
+                >
+                  {mensagem.texto}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* FOOTER */}
           <div className="px-5 py-3 border-t border-slate-800 flex items-center justify-between gap-2 bg-slate-950/95">
             <button
               type="button"
-              disabled={loading}
+              disabled={saving || loadingDashboard}
               onClick={handleRevoke}
               className="px-3 py-1.5 rounded-full text-[11px] border border-rose-500 bg-rose-500/10 text-rose-100 hover:bg-rose-500/20 disabled:opacity-60"
             >
@@ -205,7 +212,7 @@ export default function SidebarLimite({ open, onClose }) {
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                disabled={loading}
+                disabled={saving || loadingDashboard}
                 onClick={onClose}
                 className="px-3 py-1.5 rounded-full text-[11px] border border-slate-600 text-slate-300 hover:bg-slate-800 disabled:opacity-50"
               >
@@ -213,11 +220,11 @@ export default function SidebarLimite({ open, onClose }) {
               </button>
               <button
                 type="button"
-                disabled={loading}
+                disabled={saving || loadingDashboard}
                 onClick={handleSave}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] border border-emerald-500 bg-emerald-500/10 text-emerald-100 hover:bg-emerald-500/20 disabled:opacity-60"
               >
-                {loading ? "Salvando..." : "Confirmar aprovação"}
+                {saving ? "Salvando..." : "Confirmar aprovação"}
               </button>
             </div>
           </div>

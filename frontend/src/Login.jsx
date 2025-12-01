@@ -35,12 +35,12 @@ export default function Login() {
       <div className="w-full max-w-sm bg-slate-900/70 border border-slate-800 rounded-3xl p-10 backdrop-blur-2xl shadow-[0_0_80px_-10px_rgba(0,0,0,0.6)]">
 
         {/* Logo */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-2">
           <img src={Logo} className="h-12 opacity-95" alt="MedSimples" />
         </div>
 
         {/* Títulos */}
-        <div className="text-center mb-8">
+        <div className="text-center my-4">
           <h1 className="text-2xl font-semibold text-white tracking-tight">
             Bem-vindo de volta
           </h1>

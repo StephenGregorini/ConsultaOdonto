@@ -24,7 +24,7 @@ const menu = [
     <div className="flex min-h-screen bg-slate-950 text-slate-100">
 
       {/* SIDEBAR */}
-      <aside className="w-60 bg-slate-900/60 border-r border-slate-800 backdrop-blur-xl flex flex-col">
+      <aside className="w-60 bg-slate-900/60 border-r border-slate-800 backdrop-blur-xl flex flex-col fixed h-screen">
         
         {/* LOGO */}
         <div className="flex items-center gap-3 px-6 py-6 border-b border-slate-800">
@@ -32,7 +32,7 @@ const menu = [
         </div>
 
         {/* MENU */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
 
           {menu.map((item) => {
             if (item.admin && profile?.role !== "admin") return null;
@@ -72,7 +72,7 @@ const menu = [
       </aside>
 
       {/* CONTEÚDO PRINCIPAL */}
-      <main className="flex-1 p-8 flex flex-col items-start">
+      <main className="flex-1 p-8 flex flex-col items-start ml-60">
         {children}
       </main>
     </div>

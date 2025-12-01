@@ -8,9 +8,10 @@ import DecisaoCredito from "./DecisaoCredito";
 import Comportamento from "./Comportamento";
 import Carteira from "./Carteira";
 import Limites from "./Limites";
-import SidebarLimite from "./SidebarLimite";
 import Tabs from "../components/ui/Tabs";
 import { API_BASE_URL } from "../apiConfig";
+import { useEffect } from "react";
+
 
 const TABS = [
   { id: "overview", label: "Visão Geral" },
@@ -25,12 +26,18 @@ export default function Dashboard() {
     dados,
     loadingDashboard,
     erro,
-    panelLimiteAberto,
-    setPanelLimiteAberto,
     activeTab,
     setActiveTab,
     clinicaId // 🔥 AGORA IMPORTADO CORRETAMENTE
   } = useDashboard();
+
+  useEffect(() => {
+  if (dados) {
+    window.dados_debug = dados;  // 🔥 joga no escopo global
+    console.log("DEBUG GLOBAL ATUALIZADO:", window.dados_debug);
+  }
+}, [dados]);
+
 
   const handleExport = async () => {
     try {
@@ -99,11 +106,6 @@ export default function Dashboard() {
           {activeTab === "carteira" && <Carteira />}
         </>
       )}
-
-      <SidebarLimite
-        open={panelLimiteAberto}
-        onClose={() => setPanelLimiteAberto(false)}
-      />
     </div>
   );
 }

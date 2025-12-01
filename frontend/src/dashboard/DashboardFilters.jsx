@@ -8,6 +8,7 @@ import { formatMesRef } from "../utils/formatters";
 
 const ANOS = Array.from({ length: 5 }, (_, i) => String(new Date().getFullYear() - i));
 
+
 export default function DashboardFilters() {
   const {
     clinicas,
@@ -23,6 +24,7 @@ export default function DashboardFilters() {
     dados,
   } = useDashboard();
 
+  
   const navigate = useNavigate();
 
   const handleClinicaChange = (newClinicaId) => {
@@ -161,7 +163,7 @@ export default function DashboardFilters() {
                   setPeriodoFim("");
                   return;
                 }
-                setPeriodoFim(`${fimAno || ANOS[ANOS.length - 1]}-${mes}`);
+                setPeriodoFim(`${inicioAno || ANOS[0]}-${mes}`);
               }}
               options={[{ label: "Mês", value: "" }, ...MESES.map(m => ({ label: m.label, value: m.value }))]}
             />

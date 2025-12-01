@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import { useDashboardData } from "./utils/useDashboardData";
 import { useClinicas } from "./utils/useClinicas";
+import SidebarLimite from "./dashboard/SidebarLimite";
 
 const DashboardContext = createContext();
 
@@ -70,6 +71,11 @@ export function DashboardProvider({ children }) {
   return (
     <DashboardContext.Provider value={value}>
       {children}
+      {/* O SidebarLimite agora é renderizado aqui, disponível em toda a aplicação */}
+      <SidebarLimite
+        open={panelLimiteAberto}
+        onClose={() => setPanelLimiteAberto(false)}
+      />
     </DashboardContext.Provider>
   );
 }

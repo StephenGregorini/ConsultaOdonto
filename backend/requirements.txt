@@ -3,6 +3,10 @@ uvicorn[standard]
 gunicorn
 python-dotenv
 pandas
+numpy
 openpyxl
 requests
 python-multipart
+watchfiles
+pydantic
+starlette

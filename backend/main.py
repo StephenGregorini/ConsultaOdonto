@@ -1246,10 +1246,14 @@ async def dashboard_completo(
         )
         series_valor.append(
             {
+                "clinica_id": row.get("clinica_id"),
                 "mes_ref": mes_str,
                 "valor_total_emitido": valor_emitido,
+                "valor_medio_boleto": row.get("valor_medio_boleto"),
+                "qtde_boletos": row.get("qtde_boletos"),  # se existir na view
             }
         )
+
         series_inad.append(
             {
                 "mes_ref": mes_str,
@@ -1356,23 +1360,21 @@ async def dashboard_completo(
                     limite_sugerido_para_clinica = min(bruto, teto_dinamico, LIMITE_TETO_GLOBAL)
             # --- Fim do cálculo ---
 
-            ranking.append(
-                {
-                    "clinica_id": current_clinica_id,
-                    "clinica_nome": _safe_str(row.get("clinica_nome")),
-                    "cnpj": _safe_str(row.get("cnpj")),
-                    "score_credito": _safe_float(row.get("score_ajustado")),
-                    "categoria_risco": _safe_str(row.get("categoria_risco_ajustada")),
-                    "limite_aprovado": _safe_float(row.get("limite_aprovado")),
-                    "limite_sugerido": limite_sugerido_para_clinica,
-                    "valor_total_emitido_periodo": _safe_float(
-                        row.get("valor_total_emitido_periodo")
-                    ),
-                    "inadimplencia_media_periodo": _safe_float(
-                        row.get("inadimplencia_media_periodo")
-                    ),
-                }
-            )
+            ranking.append({
+                "clinica_id": current_clinica_id,
+                "clinica_nome": _safe_str(row.get("clinica_nome")),
+                "cnpj": _safe_str(row.get("cnpj")),
+                "score_credito": _safe_float(row.get("score_ajustado")),
+                "categoria_risco": _safe_str(row.get("categoria_risco_ajustada")),
+                "limite_aprovado": _safe_float(row.get("limite_aprovado")),
+                "limite_sugerido": limite_sugerido_para_clinica,
+                "valor_total_emitido_periodo": _safe_float(row.get("valor_total_emitido_periodo")),
+                "inadimplencia_media_periodo": _safe_float(row.get("inadimplencia_media_periodo")),
+
+                # ⭐ ADICIONE ESTA LINHA AQUI ⭐
+                "ticket_medio_periodo": _safe_float(row.get("valor_medio_boleto")), 
+            })
+
 
         ranking = sorted(
             ranking,

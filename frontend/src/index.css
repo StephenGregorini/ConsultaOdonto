@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-  html,
+  html {
+    @apply h-full bg-slate-950;
+  }
+  
   body,
   #root {
     @apply h-full;
