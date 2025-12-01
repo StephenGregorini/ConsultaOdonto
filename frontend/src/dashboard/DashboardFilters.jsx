@@ -182,6 +182,18 @@ export default function DashboardFilters() {
           <span className="text-[10px] text-slate-500 mt-1">
             Preencha início e fim para ativar o período personalizado.
           </span>
+
+          {periodoCustom && (
+            <button
+              onClick={() => {
+                setPeriodoInicio("");
+                setPeriodoFim("");
+              }}
+              className="mt-2 w-full px-3 py-1.5 rounded-md text-xs border border-slate-700 bg-slate-800/50 text-slate-300 hover:bg-slate-700/50"
+            >
+              Limpar período
+            </button>
+          )}
         </div>
       </div>
     </Card>

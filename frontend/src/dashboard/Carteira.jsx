@@ -28,8 +28,8 @@ export default function Carteira() {
                 <th className="py-2 pr-3 text-left">Score</th>
                 <th className="py-2 pr-3 text-left">Risco</th>
                 <th className="py-2 pr-3 text-left">Limite</th>
-                <th className="py-2 pr-3 text-left">Volume (12M)</th>
-                <th className="py-2 pr-3 text-left">Inad (12M)</th>
+                <th className="py-2 pr-3 text-left">Volume (período)</th>
+                <th className="py-2 pr-3 text-left">Inad (período)</th>
               </tr>
             </thead>
 
@@ -56,8 +56,8 @@ export default function Carteira() {
                     </span>
                   </td>
                   <td className="py-2 pr-3">{formatCurrency(row.limite_aprovado)}</td>
-                  <td className="py-2 pr-3">{formatCurrency(row.valor_total_emitido_12m)}</td>
-                  <td className="py-2 pr-3 text-rose-300">{formatPercent(row.inadimplencia_media_12m)}</td>
+                  <td className="py-2 pr-3">{formatCurrency(row.valor_total_emitido_periodo)}</td>
+                  <td className="py-2 pr-3 text-rose-300">{formatPercent(row.inadimplencia_media_periodo)}</td>
                 </tr>
               ))}
             </tbody>

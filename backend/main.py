@@ -13,6 +13,7 @@ from processor import processar_excel
 
 from io import BytesIO
 from openpyxl import Workbook
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import StreamingResponse
 
 # ==========================
@@ -113,8 +114,9 @@ class DashboardRankingClinicas(BaseModel):
     score_credito: Optional[float] = None
     categoria_risco: Optional[str] = None
     limite_aprovado: Optional[float] = None
-    valor_total_emitido_12m: Optional[float] = None
-    inadimplencia_media_12m: Optional[float] = None
+    limite_sugerido: Optional[float] = None
+    valor_total_emitido_periodo: Optional[float] = None
+    inadimplencia_media_periodo: Optional[float] = None
     class Config:
         extra = "ignore"
 
@@ -687,7 +689,25 @@ async def listar_clinicas_dashboard():
     return clinicas
 
 
-@app.get("/dashboard")
+def _fator_limite_score(s):
+    s = _safe_float(s)
+    if s is None:
+        return 0.15
+    if s >= 0.80:
+        return 0.90
+    if s >= 0.70:
+        return 0.75
+    if s >= 0.60:
+        return 0.60
+    if s >= 0.50:
+        return 0.45
+    if s >= 0.40:
+        return 0.35
+    if s >= 0.20:
+        return 0.25
+    return 0.15
+
+@app.get("/dashboard", response_model=DashboardData)
 async def dashboard_completo(
     clinica_id: str | None = None,
     meses: int = 12,
@@ -1157,25 +1177,6 @@ async def dashboard_completo(
                         total_emit_12m_clin / total_emit_portfolio_12m
                     )
 
-            # 10.6 Fator de limite por score (mais conservador)
-            def _fator_limite_score(s):
-                s = _safe_float(s)
-                if s is None:
-                    return 0.15
-                if s >= 0.80:
-                    return 0.90
-                if s >= 0.70:
-                    return 0.75
-                if s >= 0.60:
-                    return 0.60
-                if s >= 0.50:
-                    return 0.45
-                if s >= 0.40:
-                    return 0.35
-                if s >= 0.20:
-                    return 0.25
-                return 0.15
-
             # 🔥 Usa o score do último mês da CLÍNICA, não do período filtrado
             score_para_limite = _safe_float(df_ultimo_mes_clin["score_ajustado"].mean())
             limite_sugerido_fator = _fator_limite_score(score_para_limite)
@@ -1281,10 +1282,9 @@ async def dashboard_completo(
 
     ranking = []
     if not df_ultimo_global.empty:
-        df_12m_global = df[df["mes_ref_date"] >= limite_inferior_default].copy()
-
-        agg_12m_por_clinica = (
-            df_12m_global.groupby("clinica_id", as_index=False).agg(
+        # Usa o recorte de tempo do filtro para os dados da carteira
+        agg_periodo_por_clinica = (
+            df_recorte.groupby("clinica_id", as_index=False).agg(
                 {
                     "valor_total_emitido": "sum",
                     "valor_inad_real": "sum",
@@ -1299,34 +1299,77 @@ async def dashboard_completo(
                 return _safe_float(inad / emit)
             return None
 
-        agg_12m_por_clinica["inadimplencia_media_12m"] = agg_12m_por_clinica.apply(
+        agg_periodo_por_clinica["inadimplencia_media_periodo"] = agg_periodo_por_clinica.apply(
             _calc_inad_med, axis=1
         )
 
-        agg_12m_por_clinica = agg_12m_por_clinica.rename(
+        agg_periodo_por_clinica = agg_periodo_por_clinica.rename(
             columns={
-                "valor_total_emitido": "valor_total_emitido_12m",
+                "valor_total_emitido": "valor_total_emitido_periodo",
             }
         )
 
         df_rank = df_ultimo_global.merge(
-            agg_12m_por_clinica, on="clinica_id", how="left"
+            agg_periodo_por_clinica, on="clinica_id", how="left"
         )
 
         for _, row in df_rank.iterrows():
+            current_clinica_id = _safe_str(row.get("clinica_id"))
+            
+            # --- Cálculo do Limite Sugerido para esta clínica ---
+            limite_sugerido_para_clinica = None
+            df_clin_all = df[df["clinica_id"] == current_clinica_id].copy()
+            if not df_clin_all.empty:
+                last_dt_clin = df_clin_all["mes_ref_date"].max()
+
+                # Bases de faturamento (12M, 3M, 1M)
+                dt_inicio_12m_clin = last_dt_clin - pd.DateOffset(months=11)
+                df_clin_12m = df_clin_all[df_clin_all["mes_ref_date"] >= dt_inicio_12m_clin].copy()
+                total_emit_12m_clin = _safe_float(df_clin_12m["valor_total_emitido"].sum())
+                n_meses_12m_clin = int(df_clin_12m["mes_ref_date"].nunique() or 0)
+                base_media12m = total_emit_12m_clin / n_meses_12m_clin if n_meses_12m_clin > 0 and total_emit_12m_clin is not None else None
+
+                dt_inicio_3m = last_dt_clin - pd.DateOffset(months=2)
+                df_last3 = df_clin_all[(df_clin_all["mes_ref_date"] >= dt_inicio_3m) & (df_clin_all["mes_ref_date"] <= last_dt_clin)].copy()
+                base_media3m = _safe_float(df_last3["valor_total_emitido"].mean()) if not df_last3.empty else None
+
+                df_ultimo_mes_clin = df_clin_all[df_clin_all["mes_ref_date"] == last_dt_clin].copy()
+                base_ultimo_mes = _safe_float(df_ultimo_mes_clin["valor_total_emitido"].sum()) if not df_ultimo_mes_clin.empty else None
+
+                componentes = []
+                pesos = []
+                if base_media12m is not None: componentes.append(base_media12m); pesos.append(0.50)
+                if base_media3m is not None: componentes.append(base_media3m); pesos.append(0.30)
+                if base_ultimo_mes is not None: componentes.append(base_ultimo_mes); pesos.append(0.20)
+                base_mensal_mix = sum(c * p for c, p in zip(componentes, pesos)) / sum(pesos) if componentes and sum(pesos) > 0 else None
+
+                score_para_limite = _safe_float(df_ultimo_mes_clin["score_ajustado"].mean())
+                fator = _fator_limite_score(score_para_limite)
+
+                base_para_limite = base_mensal_mix or 0.0
+                bruto = base_para_limite * (fator or 0.0)
+
+                if bruto and bruto > 0:
+                    bases_validas = [b for b in [base_media12m, base_media3m, base_ultimo_mes] if b is not None and b > 0]
+                    maior_base = max(bases_validas) if bases_validas else 0
+                    teto_dinamico = 1.5 * maior_base
+                    limite_sugerido_para_clinica = min(bruto, teto_dinamico, LIMITE_TETO_GLOBAL)
+            # --- Fim do cálculo ---
+
             ranking.append(
                 {
-                    "clinica_id": _safe_str(row.get("clinica_id")),
+                    "clinica_id": current_clinica_id,
                     "clinica_nome": _safe_str(row.get("clinica_nome")),
                     "cnpj": _safe_str(row.get("cnpj")),
                     "score_credito": _safe_float(row.get("score_ajustado")),
                     "categoria_risco": _safe_str(row.get("categoria_risco_ajustada")),
                     "limite_aprovado": _safe_float(row.get("limite_aprovado")),
-                    "valor_total_emitido_12m": _safe_float(
-                        row.get("valor_total_emitido_12m")
+                    "limite_sugerido": limite_sugerido_para_clinica,
+                    "valor_total_emitido_periodo": _safe_float(
+                        row.get("valor_total_emitido_periodo")
                     ),
-                    "inadimplencia_media_12m": _safe_float(
-                        row.get("inadimplencia_media_12m")
+                    "inadimplencia_media_periodo": _safe_float(
+                        row.get("inadimplencia_media_periodo")
                     ),
                 }
             )
@@ -1340,7 +1383,7 @@ async def dashboard_completo(
     # --------------------------
     # 13) Montar resposta
     # --------------------------
-    return {
+    response_data = {
         "filtros": {
             "periodo": {
                 "min_mes_ref": _format_mes_ref(min_dt),
@@ -1389,8 +1432,17 @@ async def dashboard_completo(
             "limite_sugerido_teto_global": LIMITE_TETO_GLOBAL,
             "limite_sugerido_share_portfolio_12m": limite_sugerido_share_portfolio_12m,
         },
+        "series": {
+            "score_por_mes": series_score,
+            "valor_emitido_por_mes": series_valor,
+            "inadimplencia_por_mes": series_inad,
+            "taxa_pago_no_vencimento_por_mes": series_pago_venc,
+            "tempo_medio_pagamento_por_mes": series_tempo,
+            "parcelas_media_por_mes": series_parc,
+        },
         "ranking_clinicas": ranking,
     }
+    return jsonable_encoder(response_data)
 
 
 @app.post("/export-dashboard", response_class=StreamingResponse)
