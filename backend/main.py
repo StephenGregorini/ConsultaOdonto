@@ -1353,12 +1353,3 @@ async def export_dashboard(dashboard_data: DashboardData):
     )
 
 
-if __name__ == "__main__":
-    import uvicorn
-    print("--- INÍCIO DO DEBUG DA PORTA ---")
-    port_from_env = os.getenv("PORT")
-    print(f"Valor de 'PORT' lido do ambiente: {port_from_env}")
-    port = int(port_from_env or "8000")
-    print(f"Porta final que será usada pelo Uvicorn: {port}")
-    print("--- FIM DO DEBUG DA PORTA ---")
-    uvicorn.run(app, host="0.0.0.0", port=port)
