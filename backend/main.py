@@ -468,16 +468,20 @@ async def dashboard_resumo_geral():
         ).fillna(0)
 
     if not df_inad.empty:
-        df_inad["taxa"] = pd.to_numeric(df_inad["taxa"], errors="coerce")
+        df_inad["taxa"] = pd.to_numeric(df_inad["taxa"], errors="coerce").fillna(0)
 
     if not df_taxa_venc.empty:
-        df_taxa_venc["taxa"] = pd.to_numeric(df_taxa_venc["taxa"], errors="coerce")
+        df_taxa_venc["taxa"] = pd.to_numeric(
+            df_taxa_venc["taxa"], errors="coerce"
+        ).fillna(0)
 
     if not df_tempo.empty:
-        df_tempo["dias"] = pd.to_numeric(df_tempo["dias"], errors="coerce")
+        df_tempo["dias"] = pd.to_numeric(df_tempo["dias"], errors="coerce").fillna(0)
 
     if not df_ticket.empty:
-        df_ticket["valor"] = pd.to_numeric(df_ticket["valor"], errors="coerce")
+        df_ticket["valor"] = pd.to_numeric(df_ticket["valor"], errors="coerce").fillna(
+            0
+        )
 
     # ----------------------
     # KPI gerais
@@ -1032,6 +1036,19 @@ async def dashboard_completo(
         else None
     )
 
+    # PARCELAS MÉDIAS — período filtrado
+    parcelas_media_periodo = (
+        _safe_float(df_ctx["parc_media_parcelas_pond"].mean())
+        if "parc_media_parcelas_pond" in df_ctx.columns
+        else None
+    )
+
+    parcelas_media_ultimo_mes = (
+        _safe_float(df_ctx_ultimo["parc_media_parcelas_pond"].mean())
+        if "parc_media_parcelas_pond" in df_ctx_ultimo.columns
+        else None
+    )
+
 
     # --------------------------
     # 10) LIMITE SUGERIDO (conservador)
@@ -1334,6 +1351,9 @@ async def dashboard_completo(
 
             "tempo_medio_pagamento_media_periodo": tempo_medio_periodo,
             "tempo_medio_pagamento_ultimo_mes": tempo_medio_ultimo_mes,
+
+            "parcelas_media_periodo": parcelas_media_periodo,
+            "parcelas_media_ultimo_mes": parcelas_media_ultimo_mes,
 
             # limite sugerido (mantido, não depende do filtro)
             "limite_sugerido": limite_sugerido,

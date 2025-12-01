@@ -38,23 +38,23 @@ export default function Overview() {
         />
 
         <Kpi
-          label="Inadimplência real (12M)"
-          value={formatPercent(k.inadimplencia_media_12m)}
+          label="Inadimplência real (período)"
+          value={formatPercent(k.inadimplencia_media_periodo)}
           description={`Último mês: ${formatPercent(k.inadimplencia_ultimo_mes)}`}
           color="rose"
         />
 
         <Kpi
-          label="Pago no vencimento (12M)"
-          value={formatPercent(k.taxa_pago_no_vencimento_media_12m)}
+          label="Pago no vencimento (período)"
+          value={formatPercent(k.taxa_pago_no_vencimento_media_periodo)}
           description={`Último mês: ${formatPercent(k.taxa_pago_no_vencimento_ultimo_mes)}`}
           color="emerald"
         />
 
         <Kpi
-          label="Volume emitido (12M)"
-          value={formatCurrency(k.valor_total_emitido_12m)}
-          description={`Último mês: ${formatCurrency(k.valor_total_emitido_ultimo_mes)}`}
+          label="Volume emitido (período)"
+          value={formatCurrency(k.valor_total_emitido_periodo)}
+          description={`Último mês: ${formatCurrency(k.valor_emitido_ultimo_mes)}`}
           color="sky"
         />
       </div>
@@ -63,10 +63,10 @@ export default function Overview() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card>
           <p className="text-xs text-slate-400 mb-1">
-            Ticket médio ({periodo?.label || "12M"})
+            Ticket médio ({periodo?.label || "Período"})
           </p>
           <p className="text-xl font-semibold text-slate-100">
-            {formatCurrency(k.ticket_medio_12m)}
+            {formatCurrency(k.ticket_medio_periodo)}
           </p>
           <p className="text-[11px] text-slate-500 mt-1">
             Último mês:{" "}
@@ -78,11 +78,11 @@ export default function Overview() {
 
         <Card>
           <p className="text-xs text-slate-400 mb-1">
-            Dias médios após vencimento (12M)
+            Dias médios após vencimento ({periodo?.label || "Período"})
           </p>
           <p className="text-xl font-semibold text-slate-100">
-            {k.tempo_medio_pagamento_media_12m != null
-              ? `${k.tempo_medio_pagamento_media_12m.toFixed(1)} dias`
+            {k.tempo_medio_pagamento_media_periodo != null
+              ? `${k.tempo_medio_pagamento_media_periodo.toFixed(1)} dias`
               : "-"}
           </p>
           <p className="text-[11px] text-slate-500 mt-1">
@@ -100,8 +100,8 @@ export default function Overview() {
             Parcelas médias (ponderado)
           </p>
           <p className="text-xl font-semibold text-slate-100">
-            {k.parcelas_media_12m != null
-              ? k.parcelas_media_12m.toFixed(2)
+            {k.parcelas_media_periodo != null
+              ? k.parcelas_media_periodo.toFixed(2)
               : "-"}
           </p>
           <p className="text-[11px] text-slate-500 mt-1">
