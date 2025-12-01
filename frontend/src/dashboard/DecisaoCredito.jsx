@@ -104,15 +104,15 @@ export default function DecisaoCredito() {
 
         {/* INAD + PAGO NO VENC */}
         <div className="rounded-2xl bg-slate-900/90 border border-slate-800 p-4 space-y-2">
-          <p className="text-slate-400 text-xs">Inadimplência real (12M)</p>
+          <p className="text-slate-400 text-xs">Inadimplência real (período)</p>
           <h3 className="text-2xl font-semibold text-rose-300">
-            {formatPercent(k.inadimplencia_media_12m)}
+            {formatPercent(k.inadimplencia_media_periodo)}
           </h3>
 
           <p className="text-[11px] text-slate-500 mt-1">
             Pago no vencimento:{" "}
             <span className="text-emerald-300">
-              {formatPercent(k.taxa_pago_no_vencimento_media_12m)}
+              {formatPercent(k.taxa_pago_no_vencimento_media_periodo)}
             </span>
           </p>
         </div>
