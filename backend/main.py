@@ -136,9 +136,15 @@ class DashboardData(BaseModel):
 
 app = FastAPI(title="MedSimples · Importação de dados")
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],         # para DEV, libera tudo
+    allow_origins=[
+        "https://medsimples-controleodonto.up.railway.app",
+        "http://localhost:5173",
+        "*"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
