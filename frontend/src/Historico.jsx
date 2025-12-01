@@ -21,6 +21,14 @@ export default function Historico() {
     carregarHistorico();
   }, []);
 
+  registrar_importacao(
+      clinica_id=clinica_id,
+      arquivo_nome=arquivo_nome,
+      parsed=parsed,
+      contagem=contagem
+  )
+
+
   return (
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-100 mb-10">

@@ -211,6 +211,22 @@ def ping():
     return {"status": "ok"}
 
 
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    """
+    Recebe um arquivo Excel (.xlsx), processa e insere os dados no Supabase.
+    """
+    try:
+        contents = await file.read()
+        resultado = processar_excel(contents, arquivo_nome=file.filename)
+        return resultado
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erro ao processar o arquivo: {e}",
+        )
+
+
 @app.post("/clinicas/{clinica_id}/limite_aprovado")
 async def definir_limite_aprovado(clinica_id: str, payload: LimiteAprovadoPayload):
 
@@ -1154,7 +1170,9 @@ async def dashboard_completo(
                     return 0.25
                 return 0.15
 
-            limite_sugerido_fator = _fator_limite_score(score_atual)
+            # 🔥 Usa o score do último mês da CLÍNICA, não do período filtrado
+            score_para_limite = _safe_float(df_ultimo_mes_clin["score_ajustado"].mean())
+            limite_sugerido_fator = _fator_limite_score(score_para_limite)
 
             base_para_limite = limite_sugerido_base_mensal_mix or 0.0
             bruto = base_para_limite * (limite_sugerido_fator or 0.0)

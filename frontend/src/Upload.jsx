@@ -339,7 +339,7 @@ export default function Upload() {
                         <p>
                           <span className="text-slate-400">Arquivo: </span>
                           <span className="text-sky-300 font-medium">
-                            {res.data.arquivo}
+                            {res.data && res.data.arquivo ? res.data.arquivo : "—"}
                           </span>
                         </p>
                       </div>
