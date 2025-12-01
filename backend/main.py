@@ -938,7 +938,7 @@ async def dashboard_completo(
             limite_aprovado = _safe_float(df_ctx_ultimo["limite_aprovado"].mean())
         else:
             limite_aprovado = _safe_float(
-                df_ctx_ultimo.groupby("clinica_id")["limite_aprovado"].max().sum()
+                df_ctx_ultimo.groupby("clinica_id")["limite_aprovado"].max().sum(min_count=1)
             )
 
     # valor emitido

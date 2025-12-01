@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDashboard } from "../DashboardContext";
 import Card from "../components/ui/Card";
 import Select from "../components/ui/Select";
@@ -21,6 +22,14 @@ export default function DashboardFilters() {
     setPeriodoFim,
     dados,
   } = useDashboard();
+
+  const navigate = useNavigate();
+
+  const handleClinicaChange = (newClinicaId) => {
+    setClinicaId(newClinicaId);
+    const newSearch = newClinicaId === 'todas' ? '' : `?clinica=${newClinicaId}`;
+    navigate(`/admin/dashboard${newSearch}`, { replace: true });
+  };
 
   const listaClinicas = Array.isArray(clinicas) ? clinicas : [];
 
@@ -68,7 +77,7 @@ export default function DashboardFilters() {
 
           <Select
             value={clinicaId}
-            onChange={setClinicaId}
+            onChange={handleClinicaChange}
             loading={loadingClinicas}
             options={[
               { label: "Todas as clínicas", value: "todas" },

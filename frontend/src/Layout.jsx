@@ -16,7 +16,6 @@ const menu = [
   { label: "Upload", to: "/" },
   { label: "Dashboard", to: "/admin/dashboard", admin: true },
   { label: "Clínicas", to: "/admin/clinicas", admin: true },
-  { label: "Dados", to: "/admin/dados", admin: true },
   { label: "Perfil", to: "/perfil" },
 ];
 
