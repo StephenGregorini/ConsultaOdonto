@@ -97,7 +97,7 @@ export default function Upload() {
         </div>
 
         {/* GRID */}
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="grid lg:grid-cols-2 gap-8">
 
           {/* =============== COLUNA ESQUERDA (ALINHAMENTO FIXO) =============== */}
           <div className="flex flex-col h-full">
@@ -106,7 +106,7 @@ export default function Upload() {
             <div className="
               rounded-3xl bg-slate-900/70 border border-slate-800 p-7 
               backdrop-blur shadow-lg shadow-sky-900/30 
-              flex flex-col flex-grow
+              flex flex-col flex-grow justify-center
             ">
               <h2 className="text-lg font-semibold text-slate-100 mb-8 flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-sky-400" />
@@ -188,7 +188,7 @@ export default function Upload() {
           {/* =============== COLUNA DIREITA (ALINHAMENTO FIXO) =============== */}
           <div className="flex flex-col h-full space-y-6">
 
-            <div className="rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl shadow-sky-900/40 p-7 backdrop-blur">
+            <div className="rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl shadow-sky-900/40 p-7 backdrop-blur flex-grow flex flex-col">
               <h2 className="text-base font-semibold text-slate-100 mb-4 flex items-center gap-2">
                 <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-300 text-sm">
                   ↑
@@ -203,7 +203,7 @@ export default function Upload() {
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
                 className={`
-                  relative border-2 border-dashed rounded-2xl px-4 py-10 cursor-pointer transition
+                  relative border-2 border-dashed rounded-2xl px-4 cursor-pointer transition flex flex-col justify-center flex-grow
                   ${dragging
                     ? "border-sky-400 bg-sky-500/10"
                     : "border-slate-700 bg-slate-900/60 hover:border-sky-500/80 hover:bg-slate-900/70"}
